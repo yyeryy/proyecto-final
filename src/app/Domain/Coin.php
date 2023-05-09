@@ -26,4 +26,19 @@ class Coin
         return $this->photoUrls;
     }
 
+    public function getSymbol(): string
+    {
+        return $this->symbol;
+    }
+
+    public function getAmount(): string
+    {
+        return $this->amount;
+    }
+
+        public function getValueUsd(): string
+    {
+        return $this->value_usd;
+    }
+
 }
