@@ -2,9 +2,12 @@
 
 namespace App\Domain;
 
+
+
 class Wallet
 {
     private string $wallet_id;
+    private Coin $coin;
 
     public function __construct(string $id)
     {

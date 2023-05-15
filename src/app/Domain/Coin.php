@@ -106,7 +106,12 @@ class Coin
         $this->value_usd = $value_usd;
     }
 
+    public function sell(int $coin_id){
 
+    }
 
+    public function buy(){
+
+    }
 
 }
