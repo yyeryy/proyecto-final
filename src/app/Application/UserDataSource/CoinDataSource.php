@@ -23,11 +23,11 @@ Interface CoinDataSource
     public function getValue_usd(): float;
 
     // Setters
-    public function setCoin_id();
-    public function setName();
-    public function setSymbol();
-    public function setAmount();
-    public function setValue_usd();
+    public function setCoin_id($coin_id);
+    public function setName($name);
+    public function setSymbol($symbol);
+    public function setAmount($amount);
+    public function setValue_usd($value_usd);
 
     // Funciones
     /**

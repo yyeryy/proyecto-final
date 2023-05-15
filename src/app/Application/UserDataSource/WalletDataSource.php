@@ -18,8 +18,8 @@ Interface WalletDataSource
     public function getCoin(): Coin;
 
     // Setters
-    public function setWallet_id();
-    public function setCoin();
+    public function setWallet_id($wallet_id);
+    public function setCoin($coin);
 
     // Función
     /**
@@ -31,7 +31,7 @@ Interface WalletDataSource
     /**
      * Permite consultar la información de la cartera, mostrando información de la lista de monedas.
      */
-    public function info();
+    public function info(): int;
 
     /**
      * Permite consultar el balance de la cartera (la diferencia entre los precios de compra y los actuales de venta)
