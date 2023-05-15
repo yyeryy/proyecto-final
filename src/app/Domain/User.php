@@ -13,7 +13,7 @@ class User
         $this->email = $email;
     }
 
-    //prueba
+    //pruebas
 
     public function getId(): int
     {
