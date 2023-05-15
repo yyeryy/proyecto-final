@@ -14,8 +14,7 @@ class APIServiceProviderTest extends TestCase
     {
         $apiServiceProvider = new APIServiceProvider();
         $resultado = $apiServiceProvider->Coins();
-        $expected = '90';
-        $this->assertSame($expected, $resultado);
+        $this->assertSame('90', $resultado["data"][0]["id"]);
     }
 
     /**
@@ -25,8 +24,7 @@ class APIServiceProviderTest extends TestCase
     {
         $apiServiceProvider = new APIServiceProvider();
         $resultado = $apiServiceProvider->Coin(90);
-        $expected = 'Bitcoin';
-        $this->assertSame($expected, $resultado);
+        $this->assertSame('Bitcoin', $resultado[0]["name"]);
     }
 
     /**
@@ -36,7 +34,6 @@ class APIServiceProviderTest extends TestCase
     {
         $apiServiceProvider = new APIServiceProvider();
         $resultado = $apiServiceProvider->Coin(90);
-        $expected = 'Bitcoin';
-        $this->assertSame($expected, $resultado);
+        $this->assertSame('27475.20', $resultado[0]["price_usd"]);
     }
 }
