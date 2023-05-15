@@ -15,10 +15,7 @@ class APIServiceProvider
         $context = stream_context_create($options);
         $response = file_get_contents($url, false, $context);
         $datos = json_decode($response, true);
-
-        $id = $datos["data"][0]["id"];
-
-        return $id;
+        return $datos;
     }
 
     public function Coin($id){
@@ -32,10 +29,7 @@ class APIServiceProvider
         $context = stream_context_create($options);
         $response = file_get_contents($url, false, $context);
         $datos = json_decode($response, true);
-
-        $name = $datos[0]["name"];
-
-        return $name;
+        return $datos;
     }
 
     public function CoinPrice($id){
@@ -49,9 +43,6 @@ class APIServiceProvider
         $context = stream_context_create($options);
         $response = file_get_contents($url, false, $context);
         $datos = json_decode($response, true);
-
-        $price = $datos[0]["price_usd"];
-
-        return $price;
+        return $datos;
     }
 }
