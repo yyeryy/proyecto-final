@@ -8,19 +8,19 @@ Interface CoinDataSource
 {
     // Atributos
     /**
-     * @var private string $coin_id;
-     * @var private string $name;
-     * @var private string $symbol;
-     * @var private float $amount;
-     * @var private float $value_usd;
+     * @var private string $coin_id; Identificador de la moneda.
+     * @var private string $name; Nombre de la moneda.
+     * @var private string $symbol; Simbolo de la moneda.
+     * @var private float $amount; Cantidad de la moneda.
+     * @var private float $value_usd; Valor de compra de la moneda.
      */
 
     // Getters
-    public function getCoin_id();
-    public function getName();
-    public function getSymbol();
-    public function getAmount();
-    public function getValue_usd();
+    public function getCoin_id(): string;
+    public function getName(): string;
+    public function getSymbol(): string;
+    public function getAmount(): float;
+    public function getValue_usd(): float;
 
     // Setters
     public function setCoin_id();
