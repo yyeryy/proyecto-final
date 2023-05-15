@@ -11,7 +11,6 @@ Interface CoinDataSource
      * @return Coin[]
      */
     public function getAll(): array;
-    //prueba
 
     public function buyCoin(string $coin_id, string $wallet_id, float $amount_usd): int;
 
