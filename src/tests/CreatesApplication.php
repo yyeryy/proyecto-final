@@ -19,6 +19,5 @@ trait CreatesApplication
 
         return $app;
 
-
     }
 }
