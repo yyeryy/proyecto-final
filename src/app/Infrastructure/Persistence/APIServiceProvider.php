@@ -4,7 +4,7 @@ namespace App\Infrastructure\Persistence;
 
 class APIServiceProvider
 {
-    public function Coins(){
+    public function get100CoinsData(){
         $url = 'https://api.coinlore.net/api/tickers/?start=0&limit=100';
         $options = array(
             'http' => array(
@@ -18,7 +18,7 @@ class APIServiceProvider
         return $datos;
     }
 
-    public function Coin($id){
+    public function getCoinDataWithId($id){
         $url = 'https://api.coinlore.net/api/ticker/?id=' . $id;
         $options = array(
             'http' => array(

@@ -2,6 +2,8 @@
 
 namespace App\Domain;
 
+use App\Application\CoinDataSource;
+
 class Coin
 {
     private int $coin_id;

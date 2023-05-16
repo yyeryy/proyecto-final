@@ -49,5 +49,5 @@ Interface CoinDataSource
      *  401: Error. (Se ha intentado vender un número invalido de monedas, ejemplo negativos)
      *  402: Error. (Se ha intentado vender una cantida superior a la que se tiene)
      */
-    public function sell(float $amount): int;
+    public function sellCoin(string $coin_id, string $wallet_id, float $amount_usd): int;
 }
