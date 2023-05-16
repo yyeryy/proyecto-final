@@ -32,16 +32,22 @@ Interface CoinDataSource
     // Funciones
     /**
      * Permite comprar $amount_usd cantidad de la moneda.
-     * @param float $amount_usd: Cantidad en dolares a comprar.
+     * @param float $amount: Cantidad de la moneda a comprar.
      * @return int: Resultado de la ejecución de la función.
+     *  200: Exito. (Se ha comprado la moneda)
+     *  400: Error. (Mete un try-catch)
+     *  401: Error. (Se ha intenado comprar un número invalido de monedas, ejemplo negativos)
      */
-    public function buy(float $amount_usd): int;
+    public function buy(float $amount): int;
 
     /**
      * Permite vender $amount_usd cantidad de la moneda.
-     * @param float $amount_usd: Cantidad en dolares a vender.
+     * @param float $amount: Cantidad de la moneda a vender.
      * @return int: Resultado de la ejecución de la función.
+     *  200: Exito. (Se ha vendido la moneda)
+     *  400: Error. (Mete un try-catch)
+     *  401: Error. (Se ha intentado vender un número invalido de monedas, ejemplo negativos)
+     *  402: Error. (Se ha intentado vender una cantida superior a la que se tiene)
      */
-    public function sell(float $amount_usd): int;
-
+    public function sell(float $amount): int;
 }
