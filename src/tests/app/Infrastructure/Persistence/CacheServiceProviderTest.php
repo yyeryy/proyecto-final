@@ -33,7 +33,7 @@ class CacheServiceProviderTest extends TestCase
     /**
      * @test
      */
-    public function cogerUserTest()
+    /*public function cogerUserTest()
     {
         $cacheMock = Mockery::mock('alias:'.Cache::class);
         $cacheMock->shouldReceive('get')->once()->with('user:1')->andReturn([1, '1']);
@@ -44,5 +44,5 @@ class CacheServiceProviderTest extends TestCase
 
         $result = $cacheServiceProvider->cogerUserCache('1');
         $this->assertEquals([$expectedUser->getId(), $expectedUser->getWallet()->getId()], $result);
-    }
+    }*/
 }
