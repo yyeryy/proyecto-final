@@ -34,8 +34,6 @@ class CacheServiceProviderTest extends TestCase
 
         $this->cacheMock->shouldReceive('put')->once()->with('last_user_id', 1)->andReturn('1');
 
-
-
         $cacheServiceProvider = new CacheServiceProvider();
 
         $result = $cacheServiceProvider->anadirUserCache();

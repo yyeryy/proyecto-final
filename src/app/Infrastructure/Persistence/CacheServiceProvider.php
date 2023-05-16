@@ -23,7 +23,6 @@ class CacheServiceProvider
     public function cogerUserCache($id){
         $user = Cache::get('user:' . $id);
         if ($user) {
-            echo $user[0] . ' ' . $user[1];
             return array($user[0], $user[1]);
         }
         return null;
