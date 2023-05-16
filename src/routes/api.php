@@ -16,5 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+//Venia desde el principio.
 Route::get('/status', GetStatusController::class);
+
+//CreateWallet
+//Route::get('/wallet/open', Get)
+
+
