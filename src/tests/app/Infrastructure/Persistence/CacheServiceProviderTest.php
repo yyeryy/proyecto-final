@@ -10,14 +10,14 @@ class CacheServiceProviderTest extends TestCase
     /**
      * @test
      */
-    /*public function anadirUserTest()
+    public function anadirUserTest()
     {
         $cacheServiceProvider = new CacheServiceProvider();
         $resultado = $cacheServiceProvider->cogerUserCache(1);
         $this->assertSame('1', $resultado);
 
-        $cacheServiceProvider = new CacheServiceProvider();
+        /*$cacheServiceProvider = new CacheServiceProvider();
         $resultado = $cacheServiceProvider->anadirUserCache();
-        $this->assertSame('1', $resultado);
-    }*/
+        $this->assertSame('1', $resultado);*/
+    }
 }
