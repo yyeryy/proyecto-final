@@ -10,7 +10,7 @@ class APIServiceProviderTest extends TestCase
     /**
      * @test
      */
-    public function apiCoins()
+    public function apiCoinsTest()
     {
         $apiServiceProvider = new APIServiceProvider();
         $resultado = $apiServiceProvider->Coins();
@@ -20,7 +20,7 @@ class APIServiceProviderTest extends TestCase
     /**
      * @test
      */
-    public function apiCoin()
+    public function apiCoinTest()
     {
         $apiServiceProvider = new APIServiceProvider();
         $resultado = $apiServiceProvider->Coin(90);
