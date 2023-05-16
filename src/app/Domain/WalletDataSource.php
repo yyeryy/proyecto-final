@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Application\WalletDataSource;
+namespace App\Domain;
 
-use App\Domain\Coin;
-use App\Domain\Wallet;
+use App\Application\WalletDataSource\private;
 
 Interface WalletDataSource
 {

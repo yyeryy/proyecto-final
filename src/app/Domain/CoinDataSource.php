@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\CoinDataSource;
+namespace App\Domain;
 
-use App\Domain\Coin;
+use App\Application\CoinDataSource\private;
 
 Interface CoinDataSource
 {

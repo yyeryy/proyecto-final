@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Application\UserDataSource;
+namespace App\Domain;
 
-use App\Domain\User;
-use App\Domain\Wallet;
+use App\Application\UserDataSource\private;
 
 Interface UserDataSource
 {

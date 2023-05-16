@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Persistence;
 
-use App\Application\UserDataSource\UserDataSource;
 use App\Domain\User;
+use App\Domain\UserDataSource;
 
 class FileUserDataSource implements UserDataSource
 {
