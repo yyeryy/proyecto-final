@@ -15,6 +15,16 @@ class Wallet
         $coins = array();
     }
 
+    public function getId(): String
+    {
+        return $this->wallet_id;
+    }
+
+    public function setId(String $id): void
+    {
+        $this->wallet_id = $id;
+    }
+
     public function open(string $id): Wallet
     {
         $wallet = new Wallet($id);
