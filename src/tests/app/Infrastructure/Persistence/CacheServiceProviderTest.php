@@ -12,17 +12,27 @@ use Mockery;
 
 class CacheServiceProviderTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->cacheMock = Mockery::mock('alias:'.Cache::class);
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
     /**
      * @test
      */
     public function anadirUserTest()
     {
-        $cacheMock = Mockery::mock('alias:'.Cache::class);
-        $cacheMock->shouldReceive('get')->once()->with('last_user_id', 0)->andReturn('0');
+        $this->cacheMock->shouldReceive('get')->once()->with('last_user_id', 0)->andReturn('0');
 
-        $cacheMock->shouldReceive('put')->once()->with('user:1', [1, '1']);
+        $this->cacheMock->shouldReceive('put')->once()->with('user:1', [1, '1']);
 
-        $cacheMock->shouldReceive('put')->once()->with('last_user_id', 1)->andReturn('1');
+        $this->cacheMock->shouldReceive('put')->once()->with('last_user_id', 1)->andReturn('1');
 
 
 
@@ -35,10 +45,9 @@ class CacheServiceProviderTest extends TestCase
     /**
      * @test
      */
-    /*public function cogerUserTest()
+    public function cogerUserTest()
     {
-        $cacheMock = Mockery::mock('alias:'.Cache::class);
-        $cacheMock->shouldReceive('get')->once()->with('user:1')->andReturn([1, '1']);
+        $this->cacheMock->shouldReceive('get')->once()->with('user:1')->andReturn([1, '1']);
 
         $expectedUser = new User(1, new Wallet('1'));
 
@@ -46,5 +55,5 @@ class CacheServiceProviderTest extends TestCase
 
         $result = $cacheServiceProvider->cogerUserCache('1');
         $this->assertEquals([$expectedUser->getId(), $expectedUser->getWallet()->getId()], $result);
-    }*/
+    }
 }
