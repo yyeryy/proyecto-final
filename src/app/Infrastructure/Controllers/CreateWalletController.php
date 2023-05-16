@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Controllers;
 
 class CreateWalletController
 {
