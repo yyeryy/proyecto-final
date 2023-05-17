@@ -6,6 +6,6 @@ class CreateWalletController
 {
     public function __invoke(CreateWalletFormRequest $request)
     {
-        $request->rules();
+        $request->validate();
     }
 }
