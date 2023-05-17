@@ -23,22 +23,22 @@ Route::get('/status', GetStatusController::class);
 //Route::get('/wallet/open', Get)
 
 Route::post('/coin/sell', function () {
-    return redirect('http://localhost:8082/#/coin/sell');
+    return redirect('localhost:8088/api/coin/sell');
 });
 
 Route::post('/coin/buy', function () {
-    return redirect('http://localhost:8082/#/coin/buy');
+    return redirect('localhost:8088/api/coin/buy');
 });
 
 Route::post('/wallet/open', function () {
-    return redirect('http://localhost:8082/#/wallet/open');
+    return redirect('localhost:8088/api/wallet/open');
 });
 
 Route::get('/wallet/{wallet_id}', function ($wallet_id) {
-    return redirect('http://localhost:8082/#/wallet/' . $wallet_id);
+    return redirect('localhost:8088/api/wallet/' . $wallet_id);
 });
 
 Route::get('/wallet/{wallet_id}/balance', function ($wallet_id) {
-    return redirect('http://localhost:8082/#/wallet/' . $wallet_id . '/balance');
+    return redirect('localhost:8088/api/wallet/' . $wallet_id . '/balance');
 });
 
