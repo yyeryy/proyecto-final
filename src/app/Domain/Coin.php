@@ -92,9 +92,6 @@ class Coin
         $this->amount = $amount;
     }
 
-    /**
-     * @return float
-     */
     public function getValueUsd(): float
     {
         return $this->value_usd;
@@ -107,13 +104,4 @@ class Coin
     {
         $this->value_usd = $value_usd;
     }
-
-    public function sell(int $coin_id){
-
-    }
-
-    public function buy(){
-
-    }
-
 }
