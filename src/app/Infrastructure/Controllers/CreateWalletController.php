@@ -14,6 +14,8 @@ class CreateWalletController
     }
     public function __invoke(CreateWalletFormRequest $request)
     {
+
+        //$this->put('/wallet/open', ['user_id' => 1]);
         $user_id = $request->input('user_id');
 
         $request->validate();

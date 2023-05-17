@@ -22,6 +22,7 @@ Route::get('/status', GetStatusController::class);
 
 Route::get('/wallet/open', CreateWalletController::class);
 
+//Route::post('/wallet/open', CreateWalletController::class);
 
 //CreateWallet
 //Route::get('/wallet/open', Get)
