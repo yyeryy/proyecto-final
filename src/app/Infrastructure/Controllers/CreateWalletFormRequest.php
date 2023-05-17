@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Infrastructure\Controllers;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CreateWalletFormRequest
+
+class CreateWalletFormRequest extends FormRequest
 {
     //validamos parametro user_id
     //Recibimos parametro user_id
