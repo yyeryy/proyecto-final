@@ -25,7 +25,7 @@ Route::get('/wallet/open', CreateWalletController::class);
 
 //CreateWallet
 //Route::get('/wallet/open', Get)
-
+/*
 Route::post('/coin/sell', function () {
     return redirect('localhost:8088/api/coin/sell');
 });
@@ -45,4 +45,4 @@ Route::get('/wallet/{wallet_id}', function ($wallet_id) {
 Route::get('/wallet/{wallet_id}/balance', function ($wallet_id) {
     return redirect('localhost:8088/api/wallet/' . $wallet_id . '/balance');
 });
-
+*/
