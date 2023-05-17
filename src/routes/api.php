@@ -4,6 +4,7 @@ use App\Infrastructure\Controllers\GetUserController;
 use App\Infrastructure\Controllers\IsEarlyAdopterUserController;
 use App\Infrastructure\Controllers\GetStatusController;
 use Illuminate\Support\Facades\Route;
+use App\Infrastructure\Controllers\CreateWalletFormRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 //Venia desde el principio.
 Route::get('/status', GetStatusController::class);
+
+Route::get('/wallet/open', CreateWalletFormRequest::class);
+
 
 //CreateWallet
 //Route::get('/wallet/open', Get)
