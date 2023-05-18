@@ -5,6 +5,8 @@ namespace Tests\app\Infrastructure\Persistence;
 use App\Domain\User;
 use App\Domain\Wallet;
 use App\Infrastructure\Persistence\CacheServiceProvider;
+use App\Infrastructure\Persistence\CacheUserDataSource;
+use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\TestCase;
 use Mockery;
@@ -28,15 +30,15 @@ class CacheServiceProviderTest extends TestCase
      */
     public function anadirUserTest()
     {
-        $this->cacheMock->shouldReceive('get')->once()->with('last_user_id', 0)->andReturn('0');
+        $this->cacheMock->shouldReceive('get')->once()->with('last_wallet_id', 0)->andReturn('0');
 
-        $this->cacheMock->shouldReceive('put')->once()->with('user:1', [1, '1']);
+        $this->cacheMock->shouldReceive('put')->once()->with('wallet:1', [1, []]);
 
-        $this->cacheMock->shouldReceive('put')->once()->with('last_user_id', 1)->andReturn('1');
+        $this->cacheMock->shouldReceive('put')->once()->with('last_wallet_id', 1)->andReturn('1');
 
-        $cacheServiceProvider = new CacheServiceProvider();
+        $cacheWalletDataSource = new CacheWalletDataSource();
 
-        $result = $cacheServiceProvider->anadirUserCache();
+        $result = $cacheWalletDataSource->create('1');
         $this->assertEquals('1', $result);
     }
 
@@ -49,9 +51,9 @@ class CacheServiceProviderTest extends TestCase
 
         $expectedUser = new User(1, new Wallet('1'));
 
-        $cacheServiceProvider = new CacheServiceProvider();
+        $cacheServiceProvider = new CacheUserDataSource();
 
-        $result = $cacheServiceProvider->cogerUserCache('1');
+        $result = $cacheServiceProvider->findUserById('1');
         $this->assertEquals([$expectedUser->getId(), $expectedUser->getWallet()->getId()], $result);
     }
 }
