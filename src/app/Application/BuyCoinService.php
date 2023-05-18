@@ -23,7 +23,7 @@ class BuyCoinService
     public function execute($coinId, $walletId, $amountUsd)
     {
         try{
-            $this->cacheWalletDataSource->findById($walletId);
+            $this->cacheWalletDataSource->findUserById($walletId);
         } catch(Exception $e) {
             throw new Exception("Wallet Not found exception");
         }

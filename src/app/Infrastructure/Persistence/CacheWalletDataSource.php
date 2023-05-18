@@ -10,8 +10,7 @@ use PHPUnit\Util\Exception;
 
 class CacheWalletDataSource implements WalletDataSource
 {
-
-    public function create(string $userid){
+    public function createWallet(string $userid){
         $wallet = Cache::get('wallet:' . $userid);
         if(!$wallet) {
             $wallet = new Wallet($userid);
@@ -21,7 +20,7 @@ class CacheWalletDataSource implements WalletDataSource
         return $wallet;
     }
 
-    public function findById(string $walletId)
+    public function findUserById(string $walletId)
     {
         $wallet = Cache::get('wallet:' . $walletId);
         if ($wallet) {
