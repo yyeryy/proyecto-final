@@ -1,16 +1,29 @@
 <?php
 
 namespace App\Infrastructure\Persistence;
+use App\Domain\User;
 use App\Domain\UserDataSource;
 use App\Domain\Wallet;
 use Illuminate\Support\Facades\Cache;
 
+define("UNIQUE_USER_ID", "1");
+
 class CacheUserDataSource implements UserDataSource
 {
+    public function getUserFromCache(): User
+    {
+        $user = Cache::get('user:' . UNIQUE_USER_ID);
+        if(!$user)
+        {
+            return $user;
+        }
+        return $user;
+    }
 
-    public function getUser_id()
+    public function getUser_id(): string
     {
         // TODO: Implement getUser_id() method.
+        return "1";
     }
 
     public function getWallet()

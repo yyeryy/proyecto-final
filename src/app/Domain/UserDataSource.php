@@ -3,6 +3,7 @@
 namespace App\Domain;
 
 use App\Domain\UserDataSource\private;
+use SebastianBergmann\Type\VoidType;
 
 Interface UserDataSource
 {
@@ -12,8 +13,11 @@ Interface UserDataSource
      * @var private Wallet wallet; Cartera del usuario.
      */
 
+    //Obtenemos el unico user de la cache:
+    public function getUserFromCache(): User;
+
     // Getters
-    public function getUser_id();
+    public function getUser_id(): string;
     public function getWallet();
 
     // Setters
