@@ -20,8 +20,7 @@ class CreateWalletService
     {
         if($this->cacheUserDataSource->findUserById($user_id) == null)
         {
-            $wallet = $this->cacheWalletDataSource->create($user_id);
-            return $wallet;
+            return $this->cacheWalletDataSource->create($user_id);
         }
         return null;
     }

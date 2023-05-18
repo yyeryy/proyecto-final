@@ -26,7 +26,7 @@ class CreateWalletController
             ]);
         }
         return response()->json([
-            "walletID" => $wallet
+            "walletID" => $wallet->getId()
         ]);
     }
 }
