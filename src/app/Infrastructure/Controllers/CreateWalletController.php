@@ -10,6 +10,6 @@ class CreateWalletController
     {
         return response()->json([
             'status' => 'Ok',
-        ]);
-    }
+            ]);
+        }
 }
