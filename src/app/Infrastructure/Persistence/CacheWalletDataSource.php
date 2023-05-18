@@ -6,6 +6,7 @@ use App\Domain\Coin;
 use App\Domain\Wallet;
 use App\Domain\WalletDataSource;
 use Illuminate\Support\Facades\Cache;
+use PHPUnit\Util\Exception;
 
 class CacheWalletDataSource implements WalletDataSource
 {
@@ -26,6 +27,6 @@ class CacheWalletDataSource implements WalletDataSource
         if ($wallet) {
             return $wallet;
         }
-        return null;
+        throw new Exception("Coin Not found exception");
     }
 }

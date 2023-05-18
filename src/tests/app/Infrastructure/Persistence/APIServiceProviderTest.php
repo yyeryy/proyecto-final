@@ -2,6 +2,7 @@
 
 namespace Tests\app\Infrastructure\Persistence;
 
+use App\Infrastructure\Persistence\APIClient;
 use PHPUnit\Framework\TestCase;
 use App\Infrastructure\Persistence\APIServiceProvider;
 
@@ -22,9 +23,9 @@ class APIServiceProviderTest extends TestCase
      */
     public function apiCoinTest()
     {
-        $apiServiceProvider = new APIServiceProvider();
+        $apiServiceProvider = new APIClient();
         $resultado = $apiServiceProvider->getCoinDataWithId(90);
-        $this->assertSame('Bitcoin', $resultado[0]["name"]);
+        $this->assertSame('Bitcoin', $resultado[0]['id']);
     }
 
 }

@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\BuyCoinService;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class BuyCoinController
@@ -15,9 +15,9 @@ class BuyCoinController
     {
         $this->buyCoinService = $buyCoinService;
     }
-    public function __invoke(BuyCoinFormRequest $request)
+    public function __invoke(Request $request)
     {
-        /*$validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'coin_id' => 'required|string',
             'wallet_id' => 'required|string',
             'amount_usd' => 'required|numeric',
@@ -27,12 +27,16 @@ class BuyCoinController
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        return response()->json(['message' => 'Compra de moneda exitosa'], 200);*/
+        $user_id = $request->input("coin_id");
+        $wallet_id = $request->input("coin_id");
+        $amount_usd = $request->input("coin_id");
 
-        $validatedData = $request->validated();
 
         try {
-            $this->buyCoinService->execute($validatedData);
+            $this->buyCoinService->execute($user_id, $wallet_id, $amount_usd);
+            return response()->json([
+                "status" => "Compra realizada"
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 "status" => $e->getMessage()
