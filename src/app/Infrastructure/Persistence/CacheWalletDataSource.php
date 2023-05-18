@@ -27,6 +27,6 @@ class CacheWalletDataSource implements WalletDataSource
         if ($wallet) {
             return $wallet;
         }
-        throw new Exception("Coin Not found exception");
+        throw new Exception("Wallet Not found exception");
     }
 }

@@ -20,18 +20,9 @@ class BuyCoinService
         $this->apiCoinDataSource = $apiCoinDataSource;
     }
 
-    public function execute($coinId, $walletId, $amountUsd)
+    public function execute($coinId, $walletId, $amountUsd): void
     {
-        try{
             $this->cacheWalletDataSource->findById($walletId);
-        } catch(Exception $e) {
-            throw new Exception("Wallet Not found exception");
-        }
-
-        try{
             $this->apiCoinDataSource->getById($coinId, $amountUsd);
-        } catch(Exception $e) {
-            throw new Exception("Coin Not found exception");
-        }
     }
 }
