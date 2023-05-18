@@ -13,6 +13,8 @@ class CacheUserDataSource implements UserDataSource
     //Obtenemos usuario de caché.
     public function getUserFromCache(): User
     {
+        // Comprobar si el usuario es 1, único usuario válido.
+
         $user = Cache::get('user:' . UNIQUE_USER_ID);
         if(!$user)
         {
@@ -21,33 +23,19 @@ class CacheUserDataSource implements UserDataSource
         return $user;
     }
 
-    public function getUser_id(): string
-    {
-        // TODO: Implement getUser_id() method.
-        return "1";
-    }
-
-    public function getWallet()
-    {
-        // TODO: Implement getWallet() method.
-    }
-
-    public function setUser_id(string $user_id)
-    {
-        // TODO: Implement setUser_id() method.
-    }
-
-    public function setWallet(Wallet $wallet)
-    {
-        // TODO: Implement setWallet() method.
-    }
-
     public function findUserById(string $userId)
     {
         $user = Cache::get('user:' . $userId);
-        if ($user) {
-            return array($user[0], $user[1]);
+        if($userId == "1"){
+            if ($user) {
+                return $user;
+            }else {
+                Cache::put('user:' . $userId);
+                $user = Cache::get('user:' . $userId);
+                return $user;
+            }
         }
+
         return null;
     }
 }
