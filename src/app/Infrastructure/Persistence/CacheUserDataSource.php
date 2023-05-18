@@ -10,6 +10,7 @@ define("UNIQUE_USER_ID", "1");
 
 class CacheUserDataSource implements UserDataSource
 {
+    //Obtenemos usuario de caché.
     public function getUserFromCache(): User
     {
         $user = Cache::get('user:' . UNIQUE_USER_ID);
