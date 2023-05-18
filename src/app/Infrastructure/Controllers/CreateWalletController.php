@@ -21,7 +21,7 @@ class CreateWalletController
         $wallet = $this->createWalletService->execute($user_id);
         if($wallet == null)
         {
-            return reponse()->json([
+            return response()->json([
                 "status" => "Error usuario no existe"
             ]);
         }

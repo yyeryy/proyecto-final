@@ -18,7 +18,7 @@ class CreateWalletService
     }
     public function execute(string $user_id)
     {
-        if($this->cacheUserDataSource->findUserById($user_id) == null)
+        if($this->cacheUserDataSource->findUserById($user_id) != null)
         {
             return $this->cacheWalletDataSource->create($user_id);
         }
