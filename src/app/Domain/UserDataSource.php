@@ -19,4 +19,7 @@ Interface UserDataSource
     // Setters
     public function setUser_id(string $user_id);
     public function setWallet(Wallet $wallet);
+
+    // Funciones
+    public function findUserById(string $userId);
 }
