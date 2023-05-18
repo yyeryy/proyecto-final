@@ -11,7 +11,7 @@ class CreateWalletService
     private CacheUserDataSource $cacheUserDataSource;
     private CacheWalletDataSource $cacheWalletDataSource;
 
-    public function __construct(UserDataSource $cacheUserDataSource, WalletDataSource $cacheWalletDataSource)
+    public function __construct(CacheUserDataSource $cacheUserDataSource, CacheWalletDataSource $cacheWalletDataSource)
     {
         $this->cacheUserDataSource = $cacheUserDataSource;
         $this->cacheWalletDataSource = $cacheWalletDataSource;
