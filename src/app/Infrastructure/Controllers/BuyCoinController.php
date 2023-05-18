@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\BuyCoinService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 

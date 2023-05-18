@@ -20,7 +20,7 @@ class CacheWalletDataSource implements WalletDataSource
         return $wallet;
     }
 
-    public function findUserById(string $walletId)
+    public function findById(string $walletId)
     {
         $wallet = Cache::get('wallet:' . $walletId);
         if ($wallet) {
