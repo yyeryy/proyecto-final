@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Persistence;
 use App\Domain\UserDataSource;
 use App\Domain\Wallet;
-use App\Infrastructure\Persistence\CacheServiceProvider;
+use Illuminate\Support\Facades\Cache;
 
 class CacheUserDataSource implements UserDataSource
 {
