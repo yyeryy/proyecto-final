@@ -5,6 +5,7 @@ use App\Infrastructure\Controllers\IsEarlyAdopterUserController;
 use App\Infrastructure\Controllers\GetStatusController;
 use Illuminate\Support\Facades\Route;
 use App\Infrastructure\Controllers\CreateWalletController;
+use App\Infrastructure\Controllers\BuyCoinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ use App\Infrastructure\Controllers\CreateWalletController;
 Route::get('/status', GetStatusController::class);
 
 Route::post('/wallet/open', CreateWalletController::class);
+
+Route::post('/coin/buy', BuyCoinController::class);
 
 //Route::post('/wallet/open', CreateWalletController::class);
 
