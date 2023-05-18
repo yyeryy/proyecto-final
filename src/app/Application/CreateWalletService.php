@@ -2,10 +2,23 @@
 
 namespace App\Application;
 
+
+use App\Infrastructure\Persistence\CacheUserDataSource;
+use App\Infrastructure\Persistence\CacheWalletDataSource;
+
 class CreateWalletService
 {
+    private CacheUserDataSource $cacheUserDataSource;
+    private CacheWalletDataSource $cacheWalletDataSource;
+
+    public function __construct(UserDataSource $cacheUserDataSource, WalletDataSource $cacheWalletDataSource)
+    {
+        $this->cacheUserDataSource = $cacheUserDataSource;
+        $this->cacheWalletDataSource = $cacheWalletDataSource;
+    }
     public function execute(string $user_id)
     {
-        // Lógica para crear la billetera con el user_id recibido
+        $wallet = $this->cacheUserDataSource->findUserById($user_id);
+        return $wallet;
     }
 }

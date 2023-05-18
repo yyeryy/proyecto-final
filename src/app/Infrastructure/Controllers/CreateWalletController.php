@@ -6,16 +6,18 @@ use App\Application\CreateWalletService;
 
 class CreateWalletController
 {
+    private CreateWalletService $createWalletService;
+
     public function __construct(CreateWalletService $createWalletService)
     {
         $this->createWalletService = $createWalletService;
     }
     public function __invoke(CreateWalletFormRequest $request)
     {
-        $user_id = $request->safe()->only(['user_id']);
+        $validatedData = $request->validated();
+
+        $user_id = $validatedData['user_id'];
+
         $this->createWalletService->execute($user_id);
-        return response()->json([
-            'status' => 'Ok',
-        ]);
     }
 }

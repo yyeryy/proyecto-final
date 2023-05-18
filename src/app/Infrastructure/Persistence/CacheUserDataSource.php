@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Persistence;
 use App\Domain\UserDataSource;
 use App\Domain\Wallet;
-use PhpParser\Node\Scalar\String_;
+use App\Infrastructure\Persistence\CacheServiceProvider;
 
 class CacheUserDataSource implements UserDataSource
 {
@@ -28,8 +28,12 @@ class CacheUserDataSource implements UserDataSource
         // TODO: Implement setWallet() method.
     }
 
-    public function findUserById(string $userId): string
+    public function findUserById(string $userId)
     {
-        return cogerUserCache($userId);
+        $user = Cache::get('user:' . $userId);
+        if ($user) {
+            return array($user[0], $user[1]);
+        }
+        return null;
     }
 }
