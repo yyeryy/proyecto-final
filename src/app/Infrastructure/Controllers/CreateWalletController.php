@@ -15,10 +15,13 @@ class CreateWalletController
     public function __invoke(CreateWalletFormRequest $request)
     {
 
-        //$this->put('/wallet/open', ['user_id' => 1]);
-        $user_id = $request->input('user_id');
-
         $request->validate();
+
+        $validatedData = $request->validated();
+
+        $user_id = $validatedData['user_id'];
+
         $this->createWalletService->execute($user_id);
+        return response()->json(['message' => 'Validación exitosa', 'data' => $validatedData]);
     }
 }

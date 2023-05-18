@@ -9,7 +9,7 @@ class CreateWalletFormRequest extends FormRequest
     //validamos parametro user_id
     //Recibimos parametro user_id
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'user_id' => 'required|string'
