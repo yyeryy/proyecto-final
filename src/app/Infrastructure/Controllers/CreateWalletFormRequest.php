@@ -6,12 +6,5 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateWalletFormRequest extends FormRequest
 {
-    //validamos parametro user_id
-    //Recibimos parametro user_id
-    public function rules()
-    {
-        return [
-            'user_id' => 'required|string'
-        ];
-    }
+    // No tiene utilidad, es para cumplir con la estructura del diagrama de flujo.
 }

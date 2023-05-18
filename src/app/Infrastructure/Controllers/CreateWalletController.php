@@ -24,21 +24,17 @@ class CreateWalletController
         ]);
         if($validator->fails()){
             return response()->json([
-                "message" => "FALLO"
+                "status" => "ERROR: Los parametros introducidos no son validos."
             ]);
         }
 
-
-        //$validatedData = $request->validated();
         $user_id = $request->input("user_id");
-
-        //$user_id = $validatedData['user_id'];
 
         $wallet = $this->createWalletService->execute($user_id);
         if($wallet == null)
         {
             return response()->json([
-                "status" => "Error usuario no existe"
+                "status" => "ERROR: usuario no existe"
             ]);
         }
         return response()->json([
