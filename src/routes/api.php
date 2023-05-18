@@ -18,35 +18,11 @@ use App\Infrastructure\Controllers\BuyCoinController;
 |
 */
 
-//Venia desde el principio.
+//Comprobar estado de la API:
 Route::get('/status', GetStatusController::class);
 
+//Abrir cartera:
 Route::post('/wallet/open', CreateWalletController::class);
 
+//Comprar moneda:
 Route::post('/coin/buy', BuyCoinController::class);
-
-//Route::post('/wallet/open', CreateWalletController::class);
-
-//CreateWallet
-//Route::get('/wallet/open', Get)
-/*
-Route::post('/coin/sell', function () {
-    return redirect('localhost:8088/api/coin/sell');
-});
-
-Route::post('/coin/buy', function () {
-    return redirect('localhost:8088/api/coin/buy');
-});
-
-Route::post('/wallet/open', function () {
-    return redirect('localhost:8088/api/wallet/open');
-});
-
-Route::get('/wallet/{wallet_id}', function ($wallet_id) {
-    return redirect('localhost:8088/api/wallet/' . $wallet_id);
-});
-
-Route::get('/wallet/{wallet_id}/balance', function ($wallet_id) {
-    return redirect('localhost:8088/api/wallet/' . $wallet_id . '/balance');
-});
-*/

@@ -18,10 +18,13 @@ class CreateWalletService
     }
     public function execute(string $user_id)
     {
-        if($this->cacheUserDataSource->findUserById($user_id) != null)
+        //Si el usuario no existe no creamos cartera.
+        if($this->cacheUserDataSource->findUserById($user_id) == null)
         {
-            return $this->cacheWalletDataSource->create($user_id);
+            return null;
         }
-        return null;
+
+        //Si el usuario existe creamos cartera.
+        return $this->cacheWalletDataSource->createWallet($user_id);
     }
 }
