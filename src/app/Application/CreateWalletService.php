@@ -11,10 +11,10 @@ class CreateWalletService
     private CacheUserDataSource $cacheUserDataSource;
     private CacheWalletDataSource $cacheWalletDataSource;
 
-    public function __construct(CacheUserDataSource $cacheUserDataSource, CacheWalletDataSource $cacheWalletDataSource)
+    public function __construct()
     {
-        $this->cacheUserDataSource = $cacheUserDataSource;
-        $this->cacheWalletDataSource = $cacheWalletDataSource;
+        $this->cacheUserDataSource = new cacheUserDataSource();
+        $this->cacheWalletDataSource = new cacheWalletDataSource();
     }
     public function execute(string $user_id)
     {
