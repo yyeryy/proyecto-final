@@ -30,7 +30,7 @@ class CacheUserDataSource implements UserDataSource
             if ($user) {
                 return $user;
             }else {
-                Cache::put('user:' . $userId);
+                Cache::put('user:' . $userId, $userId);
                 $user = Cache::get('user:' . $userId);
                 return $user;
             }

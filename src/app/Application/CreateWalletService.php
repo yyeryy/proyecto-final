@@ -20,9 +20,7 @@ class CreateWalletService
     {
         //ESPECIAL 1 USUARIO
         //Comprobamos si el usuario es 1, el unico usuario valido
-        if($user_id=="1"){
-            return $this->cacheWalletDataSource->createWallet($user_id);
-        }
+
         //FIN ESPECIAL
 
         //Si el usuario no existe no creamos cartera.
