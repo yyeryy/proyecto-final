@@ -24,7 +24,7 @@ class CacheWalletDataSource implements WalletDataSource
     {
         $wallet = Cache::get('wallet:' . $walletId);
         if ($wallet) {
-            return array($wallet[0], $wallet[1]);
+            return $wallet;
         }
         return null;
     }
