@@ -14,7 +14,7 @@ class CacheWalletDataSource implements WalletDataSource
         $walletId = Cache::get('last_wallet_id', 0);
         $newId = $walletId + 1;
 
-        $wallet = new Wallet($newId);
+        $wallet = new Wallet($userid);
         Cache::put('wallet:' . $newId, array($wallet->getId(), $wallet->getCoin()));
 
         Cache::put('last_wallet_id', $newId);
