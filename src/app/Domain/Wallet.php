@@ -2,7 +2,7 @@
 
 namespace App\Domain;
 
-
+use App\Domain\WalletDataSource;
 
 class Wallet
 {

@@ -2,6 +2,8 @@
 
 namespace App\Domain;
 
+use App\Domain\UserDataSource;
+
 class User
 {
     private string $user_id;

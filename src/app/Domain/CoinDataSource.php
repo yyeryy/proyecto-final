@@ -2,7 +2,7 @@
 
 namespace App\Domain;
 
-use App\Application\CoinDataSource\private;
+use App\Domain\CoinDataSource\private;
 
 Interface CoinDataSource
 {

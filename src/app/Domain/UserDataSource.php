@@ -2,7 +2,7 @@
 
 namespace App\Domain;
 
-use App\Application\UserDataSource\private;
+use App\Domain\UserDataSource\private;
 
 Interface UserDataSource
 {

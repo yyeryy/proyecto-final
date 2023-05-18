@@ -2,7 +2,7 @@
 
 namespace App\Domain;
 
-use App\Application\WalletDataSource\private;
+use App\Domain\WalletDataSource\private;
 
 Interface WalletDataSource
 {

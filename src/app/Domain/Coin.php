@@ -2,7 +2,7 @@
 
 namespace App\Domain;
 
-use App\Application\CoinDataSource;
+use App\Domain\CoinDataSource;
 
 class Coin
 {
