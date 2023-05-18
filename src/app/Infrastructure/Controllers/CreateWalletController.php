@@ -18,6 +18,15 @@ class CreateWalletController
 
         $user_id = $validatedData['user_id'];
 
-        $this->createWalletService->execute($user_id);
+        $wallet = $this->createWalletService->execute($user_id);
+        if($wallet == null)
+        {
+            return reponse()->json([
+                "status" => "Error usuario no existe"
+            ]);
+        }
+        return response()->json([
+            "walletID" => $wallet
+        ]);
     }
 }
