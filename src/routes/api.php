@@ -20,7 +20,7 @@ use App\Infrastructure\Controllers\CreateWalletController;
 //Venia desde el principio.
 Route::get('/status', GetStatusController::class);
 
-Route::get('/wallet/open', CreateWalletController::class);
+Route::post('/wallet/open', CreateWalletController::class);
 
 //Route::post('/wallet/open', CreateWalletController::class);
 
