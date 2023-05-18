@@ -33,7 +33,7 @@ class BuyCoinService
         }
 
         try{
-            $this->apiCoinDataSource->getById($coinId);
+            $this->apiCoinDataSource->getById($coinId, $amountUsd);
         } catch(Exception $e) {
             throw new Exception("Coin Not found exception");
         }
