@@ -38,7 +38,7 @@ class CacheServiceProviderTest extends TestCase
 
         $cacheWalletDataSource = new CacheWalletDataSource();
 
-        $result = $cacheWalletDataSource->create('1');
+        $result = $cacheWalletDataSource->createWallet(1);
         $this->assertEquals('1', $result);
     }
 
