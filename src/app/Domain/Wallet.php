@@ -42,17 +42,34 @@ class Wallet
     }
 
     public function insertCoin(Coin $coin){
-        $key = array_search($coin, $this->coins);
-        if($key){
-            $coin->setAmount(($this->coins[$key]->getAmount()) + $coin->getAmount());
-            $coin->setValueUsd(($this->coins[$key]->getValueUsd()) + $coin->getValueUsd());
+        $bool = false;
+        $key = 0;
+        foreach ($this->coins as $oldCoin){
+            if($oldCoin->getCoinId() == $coin->getCoinId()){
+                $bool = true;
+                break;
+            }
+            $key++;
         }
-        array_push($this->coins, $coin);
+        if($bool){
+            $this->coins[$key]->setAmount(($this->coins[$key]->getAmount()) + $coin->getAmount());
+            $this->coins[$key]->setValueUsd(($this->coins[$key]->getValueUsd()) + $coin->getValueUsd());
+        }else{
+            array_push($this->coins, $coin);
+        }
     }
 
     public function sellCoin(Coin $coin){
-        $key = array_search($coin, $this->coins);
-        if($key){
+        $bool = false;
+        $key = 0;
+        foreach ($this->coins as $oldCoin){
+            if($oldCoin->getCoinId() == $coin->getCoinId()){
+                $bool = true;
+                break;
+            }
+            $key++;
+        }
+        if($bool){
             if($this->coins[$key]->getAmount() > $coin->getAmount()){
                 $this->coins[$key]->setAmount($this->coins[$key]->getAmount() - $coin->getAmount());
             } else if($this->coins[$key]->getAmount() == $coin->getAmount()){
