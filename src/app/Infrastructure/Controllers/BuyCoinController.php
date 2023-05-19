@@ -31,7 +31,11 @@ class BuyCoinController
         $user_id = $request->input("coin_id");
         $wallet_id = $request->input("wallet_id");
         $amount_usd = $request->input("amount_usd");
-
+        if($amount_usd <= 0){
+            return response()->json([
+                "errors" => "El amount no puede ser menor o igual que 0"
+            ]);
+        }
 
         try {
             $this->buyCoinService->execute($user_id, $wallet_id, $amount_usd);
@@ -40,7 +44,7 @@ class BuyCoinController
             ]);
         } catch (Exception $e) {
             return response()->json([
-                "status" => $e->getMessage()
+                "errors" => $e->getMessage()
             ]);
         }
     }
