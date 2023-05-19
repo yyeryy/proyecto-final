@@ -41,4 +41,8 @@ class Wallet
         return $wallet;
     }
 
+    public function insertCoin(Coin $coin){
+        array_push($this->coins, $coin);
+    }
+
 }

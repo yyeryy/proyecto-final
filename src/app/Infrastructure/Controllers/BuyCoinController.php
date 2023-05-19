@@ -29,8 +29,8 @@ class BuyCoinController
         }
 
         $user_id = $request->input("coin_id");
-        $wallet_id = $request->input("coin_id");
-        $amount_usd = $request->input("coin_id");
+        $wallet_id = $request->input("wallet_id");
+        $amount_usd = $request->input("amount_usd");
 
 
         try {
