@@ -42,7 +42,25 @@ class Wallet
     }
 
     public function insertCoin(Coin $coin){
+        $key = array_search($coin, $this->coins);
+        if($key){
+            $coin->setAmount(($this->coins[$key]->getAmount()) + $coin->getAmount());
+            $coin->setValueUsd(($this->coins[$key]->getValueUsd()) + $coin->getValueUsd());
+        }
         array_push($this->coins, $coin);
+    }
+
+    public function sellCoin(Coin $coin){
+        $key = array_search($coin, $this->coins);
+        if($key){
+            if($this->coins[$key]->getAmount() > $coin->getAmount()){
+                $this->coins[$key]->setAmount($this->coins[$key]->getAmount() - $coin->getAmount());
+            } else if($this->coins[$key]->getAmount() == $coin->getAmount()){
+                array_splice($this->coins, $key, 1);
+            }
+        } else {
+            array_splice($this->coins, $key, 1);
+        }
     }
 
 }
