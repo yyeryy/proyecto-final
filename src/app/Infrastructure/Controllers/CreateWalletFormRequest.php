@@ -5,5 +5,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateWalletFormRequest extends FormRequest
 {
-    //Implementado en CreateWalletController.
+    public function rules()
+    {
+        return[
+            "user_id" => "required|string",
+        ];
+    }
 }
