@@ -2,7 +2,10 @@
 
 namespace App\Infrastructure\Controllers;
 
+use App\Application\SellCoinService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SellCoinController
 {
