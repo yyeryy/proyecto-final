@@ -26,3 +26,13 @@ Route::post('/wallet/open', CreateWalletController::class);
 
 //Comprar moneda:
 Route::post('/coin/buy', BuyCoinController::class);
+
+//Vender moneda:
+Route::post('/sell/buy', SellCoinController::class);
+
+//Obtener balance:
+Route::get('/wallet/{wallet_id}/balance', WalletBalanceController::class);
+
+//Obtener cryptomonedas:
+Route::get('/wallet/{wallet_id}', WalletCryptocurrenciesController::class);
+
