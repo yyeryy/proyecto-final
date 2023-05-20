@@ -4,6 +4,7 @@ namespace App\Infrastructure\Controllers;
 
 use App\Application\SellCoinService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +31,8 @@ class SellCoinController
         $user_id = $request->input("coin_id");
         $wallet_id = $request->input("wallet_id");
         $amount_usd = $request->input("amount_usd");
+
+        //$this->checkAmountUsdIsNotSmallerOrEqualThanCero($amount_usd);
         if($amount_usd <= 0){
             return response()->json([
                 "errors" => "El amount no puede ser menor o igual a 0"
@@ -47,4 +50,15 @@ class SellCoinController
             ]);
         }
     }
+
+    /*
+    public function checkAmountUsdIsNotSmallerOrEqualThanCero(int $amount_usd)
+    {
+        if($amount_usd <= 0){
+            return response()->json([
+                "errors" => "El amount no puede ser menor o igual a 0"
+            ]);
+        }
+    }
+    */
 }

@@ -4,11 +4,10 @@ use App\Infrastructure\Controllers\GetUserController;
 use App\Infrastructure\Controllers\IsEarlyAdopterUserController;
 use App\Infrastructure\Controllers\GetStatusController;
 use App\Infrastructure\Controllers\SellCoinController;
-<<<<<<< HEAD
-=======
+
 use App\Infrastructure\Controllers\WalletBalanceController;
 use App\Infrastructure\Controllers\WalletCryptocurrenciesController;
->>>>>>> preproduccion
+
 use Illuminate\Support\Facades\Route;
 use App\Infrastructure\Controllers\CreateWalletController;
 use App\Infrastructure\Controllers\BuyCoinController;
