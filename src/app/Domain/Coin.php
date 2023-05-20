@@ -11,6 +11,7 @@ class Coin
     private string $symbol;
     private float $amount;
     private float $value_usd;
+    private int $rank;
 
     /**
      * @param int $coin_id
@@ -18,14 +19,16 @@ class Coin
      * @param string $symbol
      * @param float $amount
      * @param float $value_usd
+     * @param int $rank
      */
-    public function __construct(int $coin_id, string $name, string $symbol, float $amount, float $value_usd)
+    public function __construct(int $coin_id, string $name, string $symbol, float $amount, float $value_usd, int $rank)
     {
         $this->coin_id = $coin_id;
         $this->name = $name;
         $this->symbol = $symbol;
         $this->amount = $amount;
         $this->value_usd = $value_usd;
+        $this->rank = $rank;
     }
 
     /**
@@ -103,5 +106,21 @@ class Coin
     public function setValueUsd(float $value_usd): void
     {
         $this->value_usd = $value_usd;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRank(): int
+    {
+        return $this->rank;
+    }
+
+    /**
+     * @param int $rank
+     */
+    public function setRank(int $rank): void
+    {
+        $this->rank = $rank;
     }
 }

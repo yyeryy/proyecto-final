@@ -4,7 +4,6 @@ namespace Tests\app\Infrastructure\Persistence;
 
 use App\Domain\User;
 use App\Domain\Wallet;
-use App\Infrastructure\Persistence\CacheServiceProvider;
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Illuminate\Support\Facades\Cache;
@@ -38,7 +37,11 @@ class CacheServiceProviderTest extends TestCase
 
         $cacheWalletDataSource = new CacheWalletDataSource();
 
+<<<<<<< HEAD
         $result = $cacheWalletDataSource->createWallet(1);
+=======
+        $result = $cacheWalletDataSource->createWallet('1');
+>>>>>>> preproduccion
         $this->assertEquals('1', $result);
     }
 
