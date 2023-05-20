@@ -57,6 +57,11 @@ class Wallet
             $this->coins[$key]->setValueUsd(($this->coins[$key]->getValueUsd()) + $coin->getValueUsd());
         }else{
             array_push($this->coins, $coin);
+            $ranks = [];
+            foreach ($this->coins as $coin) {
+                $ranks[] = $coin->getRank();
+            }
+            array_multisort($ranks, SORT_ASC, $this->coins);
         }
     }
 
@@ -80,7 +85,7 @@ class Wallet
                 //para vender era igual al amount que tenía para que solamente se pudieran vender en caso de ser
                 //menor o igual a la cantidad que tenía, pero quedaría al cambiar el precio de las criptomonedas cada
                 //poco tiempo una cantidad muy pequeña de moneda, así que lo vendemos todo.
-                array_splice($this->coins, $key);
+                array_splice($this->coins, $key, 1);
             }
         } else {
             throw new Exception("No existe esa moneda en la wallet");

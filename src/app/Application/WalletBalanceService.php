@@ -32,6 +32,6 @@ class WalletBalanceService
         for($i = 0; $i<count($coins); $i++){
             $balance += (($price_array[$i] * $coins[$i]->getAmount()) - ($coins[$i]->getValueUsd()));
         }
-        return $coins_str;
+        return $balance . "$";
     }
 }
