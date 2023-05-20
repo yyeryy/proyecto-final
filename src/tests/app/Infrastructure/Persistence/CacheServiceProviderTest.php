@@ -4,7 +4,6 @@ namespace Tests\app\Infrastructure\Persistence;
 
 use App\Domain\User;
 use App\Domain\Wallet;
-use App\Infrastructure\Persistence\CacheServiceProvider;
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Illuminate\Support\Facades\Cache;
