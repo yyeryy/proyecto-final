@@ -10,8 +10,10 @@ class WalletCryptocurrenciesFormRequest extends FormRequest
     {
         return[
             'coin_id' => 'required|string',
-            'wallet_id' => 'required|string',
-            'amount_usd' => 'required|numeric'
+            'name' => 'required|string',
+            'symbol' =>'required|string',
+            'amount' => 'required|numeric',
+            'value_usd' => 'required|numeric'
         ];
     }
 }
