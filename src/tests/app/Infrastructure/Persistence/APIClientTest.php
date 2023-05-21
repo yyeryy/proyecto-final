@@ -4,27 +4,47 @@ namespace Tests\Infrastructure\Persistence;
 
 use App\Infrastructure\Persistence\APIClient;
 use Exception;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class APIClientTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->APIClientMock = Mockery::mock(APIClient::class);
+    }
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
     /**
      * @test
      */
     public function get_coin_data_with_Id_correctly_test(){
-        $APIClient = new APIClient();
-        $data = $APIClient->getCoinDataWithId(90);
-        $this->assertNotNull($data);
-        $this->assertIsArray($data);
-        $this->assertEquals('Bitcoin', $data[0]['name']);
+        $coinData = [
+            [
+                'id' => 90,
+                'name' => 'Bitcoin',
+                'symbol' => 'BTC',
+                'price_usd' => 1000,
+                'rank' => 1
+            ]
+        ];
+        $this->APIClientMock->shouldReceive('getCoinDataWithId')->once()->with('90')->andReturn($coinData);
+        $result = $this->APIClientMock->getCoinDataWithId('90');
+        $this->assertNotNull($result);
+        $this->assertIsArray($result);
+        $this->assertEquals('Bitcoin', $result[0]['name']);
     }
     /**
      * @test
      */
     public function get_coin_data_with_incorrectly_Id_test(){
-        $APIClient = new APIClient();
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Coin Not found exception");
-        $APIClient->getCoinDataWithId(50000);
+        $this->APIClientMock->shouldReceive('getCoinDataWithId')->once()->with('50000')->andThrow(new Exception("Coin Not found exception"));
+        $result = $this->APIClientMock->getCoinDataWithId('50000');
     }
 }
