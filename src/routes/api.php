@@ -36,8 +36,8 @@ Route::post('/coin/buy', BuyCoinController::class);
 Route::post('/coin/sell', SellCoinController::class);
 
 //Obtener balance:
-//Route::get('/wallet/{wallet_id}/balance', WalletBalanceController::class);
+Route::get('/wallet/{wallet_id}/balance', WalletBalanceController::class);
 
 //Obtener cryptomonedas:
-//Route::get('/wallet/{wallet_id}', WalletCryptocurrenciesController::class);
+Route::get('/wallet/{wallet_id}', WalletCryptocurrenciesController::class);
 
