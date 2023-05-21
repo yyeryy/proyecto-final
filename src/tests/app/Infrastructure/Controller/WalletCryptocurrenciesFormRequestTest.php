@@ -58,4 +58,17 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
         $this->assertStringContainsString('required', $rules['amount']);
         $this->assertStringContainsString('number', $rules['amount']);
     }
+
+    /**
+     * @test
+     */
+    public function formRequest_validates_value_usd_parameter()
+    {
+        $createWalletFormRequest = new CreateWalletFormRequest();
+
+        $rules = $createWalletFormRequest->rules();
+        $this->assertArrayHasKey('value_usd', $rules);
+        $this->assertStringContainsString('required', $rules['value_usd']);
+        $this->assertStringContainsString('number', $rules['value_usd']);
+    }
 }
