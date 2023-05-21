@@ -13,7 +13,7 @@ class APIClientTest extends TestCase
      */
     public function get_coin_data_with_Id_correctly_test(){
         $APIClient = new APIClient();
-        $data = $APIClient->getCoinDataWithId(90);
+        $data = $APIClient->getCoinDataWithId('90');
         $this->assertNotNull($data);
         $this->assertIsArray($data);
         $this->assertEquals('Bitcoin', $data[0]['name']);
@@ -25,6 +25,6 @@ class APIClientTest extends TestCase
         $APIClient = new APIClient();
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Coin Not found exception");
-        $APIClient->getCoinDataWithId(50000);
+        $APIClient->getCoinDataWithId('50000');
     }
 }
