@@ -32,4 +32,17 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
         $this->assertStringContainsString('required', $rules['name']);
         $this->assertStringContainsString('string', $rules['name']);
     }
+
+    /**
+     * @test
+     */
+    public function formRequest_validates_symbol_parameter()
+    {
+        $createWalletFormRequest = new CreateWalletFormRequest();
+
+        $rules = $createWalletFormRequest->rules();
+        $this->assertArrayHasKey('symbol', $rules);
+        $this->assertStringContainsString('required', $rules['symbol']);
+        $this->assertStringContainsString('string', $rules['symbol']);
+    }
 }
