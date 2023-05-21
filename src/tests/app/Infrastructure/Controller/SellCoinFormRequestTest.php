@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Infrastructure\Controllers;
+namespace Tests\app\Infrastructure\Controller;
 
 use App\Infrastructure\Controllers\SellCoinFormRequest;
 use PHPUnit\Framework\TestCase;
