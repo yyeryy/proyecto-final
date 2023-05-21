@@ -9,9 +9,7 @@ class WalletBalanceFormRequest extends FormRequest
     public function rules()
     {
         return[
-            'coin_id' => 'required|string',
-            'wallet_id' => 'required|string',
-            'amount_usd' => 'required|numeric'
+            'wallet_id' => 'required|string'
         ];
     }
 }
