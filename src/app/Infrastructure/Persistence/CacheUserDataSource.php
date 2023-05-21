@@ -17,11 +17,11 @@ class CacheUserDataSource implements UserDataSource
         // Comprobar si el usuario es 1, único usuario válido.
 
         $user = Cache::get('user:' . UNIQUE_USER_ID);
-        if($user)
+        if(!$user)
         {
-            return $user;
+            throw new Exception("User Not found exception");
         }
-        throw new Exception("User Not found exception");
+        return $user;
     }
 
     public function findUserById(string $userId)
