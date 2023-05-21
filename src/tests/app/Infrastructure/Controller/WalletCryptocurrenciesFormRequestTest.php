@@ -2,6 +2,7 @@
 
 namespace Tests\app\Infrastructure\Controller;
 
+use App\Infrastructure\Controllers\WalletCryptocurrenciesFormRequest;
 use PHPUnit\Framework\TestCase;
 
 class WalletCryptocurrenciesFormRequestTest extends TestCase
