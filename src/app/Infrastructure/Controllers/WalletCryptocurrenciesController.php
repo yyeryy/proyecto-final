@@ -25,7 +25,7 @@ class WalletCryptocurrenciesController
 
         try {
             $wallet = $this->walletCryptocurrenciesService->execute($wallet_id);
-            $coins = $wallet->getCoin(); // Tu array de objetos de la clase Coin
+            $coins = $wallet->getCoin();
             $data = [];
 
             foreach ($coins as $coin) {
