@@ -57,7 +57,7 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
         $rules = $createWalletFormRequest->rules();
         $this->assertArrayHasKey('amount', $rules);
         $this->assertStringContainsString('required', $rules['amount']);
-        $this->assertStringContainsString('number', $rules['amount']);
+        $this->assertStringContainsString('numeric', $rules['amount']);
     }
 
     /**
@@ -70,6 +70,6 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
         $rules = $createWalletFormRequest->rules();
         $this->assertArrayHasKey('value_usd', $rules);
         $this->assertStringContainsString('required', $rules['value_usd']);
-        $this->assertStringContainsString('number', $rules['value_usd']);
+        $this->assertStringContainsString('numeric', $rules['value_usd']);
     }
 }
