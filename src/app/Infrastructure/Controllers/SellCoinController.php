@@ -32,7 +32,6 @@ class SellCoinController
         $wallet_id = $request->input("wallet_id");
         $amount_usd = $request->input("amount_usd");
 
-        //$this->checkAmountUsdIsNotSmallerOrEqualThanCero($amount_usd);
         if($amount_usd <= 0){
             return response()->json([
                 "errors" => "El amount no puede ser menor o igual a 0"
@@ -50,15 +49,4 @@ class SellCoinController
             ]);
         }
     }
-
-    /*
-    public function checkAmountUsdIsNotSmallerOrEqualThanCero(int $amount_usd)
-    {
-        if($amount_usd <= 0){
-            return response()->json([
-                "errors" => "El amount no puede ser menor o igual a 0"
-            ]);
-        }
-    }
-    */
 }

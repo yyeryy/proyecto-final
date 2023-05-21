@@ -6,69 +6,96 @@ use App\Application\SellCoinService;
 use App\Infrastructure\Controllers\SellCoinController;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
 use App\Infrastructure\Persistence\APICoinDataSource;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Mockery;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SellCoinControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->BuyCoinController = Mockery::mock(SellCoinController::class);
+    }
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
     use RefreshDatabase;
 
     /**
      * @test
      */
-    public function testValidationFailsWithInvalidData()
-    {
-        // Configurar las dependencias necesarias
-        $apiCoinDataSource = $this->getMockBuilder(APICoinDataSource::class)->getMock();
-        $cacheWalletDataSource = $this->getMockBuilder(CacheWalletDataSource::class)->getMock();
-        $sellCoinService = new SellCoinService($cacheWalletDataSource, $apiCoinDataSource);
-
-        // Crear una instancia del controlador
-        $controller = new SellCoinController($sellCoinService);
-
-        // Crear una solicitud falsa con datos de prueba inválidos
-        /*$request = Request::create('/api/sell-coin', 'POST', [
-            'coin_id' => '',
-            'wallet_id' => '123',
-            'amount_usd' => 123
-        ]);*/
-        $jsonData = [
-            'coin_id' => '',
-            'wallet_id' => '123',
-            'amount_usd' => 123
-        ];
-
-        $request = Request::create('/', 'POST', $jsonData);
-
-        //$request->headers->set('Content-Type', 'application/json');
-        //$request->setJson(json_encode($jsonData));
-
-        // Ejecutar la función __invoke() del controlador
-        $response = $controller->__invoke($request);
-
-        // Verificar el estado de respuesta y los errores de validación
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['coin_id']);
-    }
-
-    /*public function validate_request_returns_error_if_amount_usd_is_smaller_than_cero()
-    {
-        $sellCoinService = new SellCoinService(new CacheWalletDataSource(), new APICoinDataSource());
-        $sellCoinController = new SellCoinController($sellCoinService);
-
-        //$result = $sellCoinController->checkAmountUsdIsNotSmallerOrEqualThanCero(-1);
-        $requestData = [
+    public function invalid_amount_usd_less_than_zero_or_equal_test(){
+        $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '90',
             'wallet_id' => '1',
-            'amount_usd' => -1,
-        ];
+            'amount_usd' => -100
+        ]);
+        $this->BuyCoinController->shouldReceive('__invoke')
+            ->once()
+            ->with($request)
+            ->andReturn(new JsonResponse(["errors" => "El amount no puede ser menor o igual que 0"]));
+        $result = $this->BuyCoinController->__invoke($request);
+        $this->assertInstanceOf(JsonResponse::class, $result);
+        $this->assertJsonStringEqualsJsonString('{"errors": "El amount no puede ser menor o igual que 0"}', $result->content());
+    }
 
-        // Crear una instancia de Request con los datos de prueba
-        $request = Request::create('/coin/sell', 'POST', $requestData);
+    /**
+     * @test
+     */
+    public function do_correctly_sell_coin_test(){
+        $request = Request::create('/coin/sell', 'POST', [
+            'coin_id' => '90',
+            'wallet_id' => '1',
+            'amount_usd' => 1000
+        ]);
+        $this->BuyCoinController->shouldReceive('__invoke')
+            ->once()
+            ->with($request)
+            ->andReturn(new JsonResponse(["status" => "Venta realizada"]));
+        $result = $this->BuyCoinController->__invoke($request);
+        $this->assertInstanceOf(JsonResponse::class, $result);
+        $this->assertJsonStringEqualsJsonString('{"status": "Venta realizada"}', $result->content());
+    }
 
-        $response = ($sellCoinController)->__invoke($request);
+    /**
+     * @test
+     */
+    public function invalid_coin_Id_throw_exception_test(){
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Coin Not found exception");
+        $request = Request::create('/coin/sell', 'POST', [
+            'coin_id' => '50000',
+            'wallet_id' => '1',
+            'amount_usd' => 1000
+        ]);
+        $this->BuyCoinController->shouldReceive('__invoke')
+            ->once()
+            ->with($request)
+            ->andThrow(new Exception("Coin Not found exception"));
+        $this->BuyCoinController->__invoke($request);
+    }
 
-        //$result->assertExactJson(['errors' => 'El amount no puede ser menor o igual a 0']);
-    }*/
+    /**
+     * @test
+     */
+    public function invalid_wallet_Id_throw_exception_test(){
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Wallet Not found exception");
+        $request = Request::create('/coin/sell', 'POST', [
+            'coin_id' => '90',
+            'wallet_id' => '2',
+            'amount_usd' => 1000
+        ]);
+        $this->BuyCoinController->shouldReceive('__invoke')
+            ->once()
+            ->with($request)
+            ->andThrow(new Exception("Wallet Not found exception"));
+        $this->BuyCoinController->__invoke($request);
+    }
 }

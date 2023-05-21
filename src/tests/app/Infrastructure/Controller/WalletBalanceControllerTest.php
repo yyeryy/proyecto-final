@@ -32,7 +32,7 @@ class WalletBalanceControllerTest extends TestCase
     public function invalid_wallet_Id_test()
     {
         $requestData = json_encode(array('wallet_id' => '1'));
-        $request = Request::create('/wallet/h/balance', 'POST', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/h/balance', 'GET', [],[],[],[],$requestData);
         $this->WalletBalanceController->shouldReceive('__invoke')
             ->once()
             ->with($request, 'h')
@@ -48,7 +48,7 @@ class WalletBalanceControllerTest extends TestCase
     public function get_correctly_balance_test()
     {
         $requestData = json_encode(array('wallet_id' => '1'));
-        $request = Request::create('/wallet/1/balance', 'POST', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/1/balance', 'GET', [],[],[],[],$requestData);
         $this->WalletBalanceController->shouldReceive('__invoke')
             ->once()
             ->with($request, '1')
@@ -66,7 +66,7 @@ class WalletBalanceControllerTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Wallet Not found exception");
         $requestData = json_encode(array('wallet_id' => '2'));
-        $request = Request::create('/wallet/2/balance', 'POST', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/2/balance', 'GET', [],[],[],[],$requestData);
         $this->WalletBalanceController->shouldReceive('__invoke')
             ->once()
             ->with($request, '2')
