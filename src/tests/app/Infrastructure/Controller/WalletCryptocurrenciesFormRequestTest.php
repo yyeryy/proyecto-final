@@ -4,11 +4,12 @@ namespace Tests\app\Infrastructure\Controller;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @test
- */
 class WalletCryptocurrenciesFormRequestTest extends TestCase
 {
+
+    /**
+     * @test
+     */
     public function formRequest_validates_coin_id_parameter()
     {
         $createWalletFormRequest = new CreateWalletFormRequest();
