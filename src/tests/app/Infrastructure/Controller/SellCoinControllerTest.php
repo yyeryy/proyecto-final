@@ -28,11 +28,21 @@ class SellCoinControllerTest extends TestCase
         $controller = new SellCoinController($sellCoinService);
 
         // Crear una solicitud falsa con datos de prueba inválidos
-        $request = Request::create('/api/sell-coin', 'POST', [
+        /*$request = Request::create('/api/sell-coin', 'POST', [
             'coin_id' => '',
             'wallet_id' => '123',
-            'amount_usd' => 'abc',
-        ]);
+            'amount_usd' => 123
+        ]);*/
+        $jsonData = [
+            'coin_id' => '',
+            'wallet_id' => '123',
+            'amount_usd' => 123
+        ];
+
+        $request = Request::create('/', 'POST', $jsonData);
+
+        //$request->headers->set('Content-Type', 'application/json');
+        //$request->setJson(json_encode($jsonData));
 
         // Ejecutar la función __invoke() del controlador
         $response = $controller->__invoke($request);
