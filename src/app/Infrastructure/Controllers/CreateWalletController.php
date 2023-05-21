@@ -17,7 +17,6 @@ class CreateWalletController
 
     public function __invoke(Request $request)
     {
-        //Validación de parámetros (CreateWalletFormRequest):
         $validator = Validator::make($request->all(),
         [
             "user_id" => "required|string",
@@ -28,13 +27,9 @@ class CreateWalletController
             ]);
         }
 
-        //Obtención de datos:
         $user_id = $request->input("user_id");
-
-        //Ejecutar CreateWalletService:
         $wallet = $this->createWalletService->execute($user_id);
 
-        //Error usuario no existe.
         if($wallet == null)
         {
             return response()->json([
@@ -42,7 +37,6 @@ class CreateWalletController
             ]);
         }
 
-        //Devolver walletID.
         return response()->json([
             "walletID" => $wallet->getId()
         ]);
