@@ -5,6 +5,7 @@ use App\Domain\User;
 use App\Domain\UserDataSource;
 use App\Domain\Wallet;
 use Illuminate\Support\Facades\Cache;
+use PHPUnit\Util\Exception;
 
 define("UNIQUE_USER_ID", "1");
 
@@ -18,7 +19,7 @@ class CacheUserDataSource implements UserDataSource
         $user = Cache::get('user:' . UNIQUE_USER_ID);
         if(!$user)
         {
-            return $user;
+            throw new Exception("User Not found exception");
         }
         return $user;
     }
