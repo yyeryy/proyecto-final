@@ -25,7 +25,6 @@ class APICoinDataSourceTest extends TestCase
      * @test
      */
     public function get_coin_by_Id_correctly_test(){
-
         $moneda = new Coin(1, 'Bitcoin', 'BTC', 0.02, 1000, 1);
         $this->APICoinDataSourceMock->shouldReceive('getById')->once()->with('90', 1000)->andReturn($moneda);
 
