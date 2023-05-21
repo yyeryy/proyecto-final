@@ -2,7 +2,14 @@
 
 namespace App\Infrastructure\Controllers;
 
-class WalletBalanceFormRequest
-{
+use Illuminate\Foundation\Http\FormRequest;
 
+class WalletBalanceFormRequest extends FormRequest
+{
+    public function rules()
+    {
+        return[
+            'wallet_id' => 'required|string'
+        ];
+    }
 }
