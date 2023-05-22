@@ -3,6 +3,8 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\CreateWalletService;
+use App\Infrastructure\Persistence\CacheUserDataSource;
+use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,7 +14,7 @@ class CreateWalletController
 
     public function __construct()
     {
-        $this->createWalletService = new CreateWalletService();
+        $this->createWalletService = new CreateWalletService(new CacheUserDataSource(), new CacheWalletDataSource());
     }
 
     public function __invoke(Request $request)
