@@ -18,9 +18,6 @@ class CreateWalletService
     }
     public function execute(string $user_id)
     {
-        //ESPECIAL 1 USUARIO
-        //Comprobamos si el usuario es 1, el unico usuario valido
-
         //Si el usuario no existe no creamos cartera.
         if($this->cacheUserDataSource->findUserById($user_id) == null)
         {

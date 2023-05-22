@@ -6,6 +6,7 @@ use App\Application\WalletCryptocurrenciesService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class WalletCryptocurrenciesController
 {
@@ -20,7 +21,7 @@ class WalletCryptocurrenciesController
         if(!is_numeric($wallet_id)){
             return response()->json([
                 "status" => "ERROR: Los parametros introducidos no son validos."
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         try {
@@ -39,11 +40,11 @@ class WalletCryptocurrenciesController
             }
             return response()->json([
                 "data" => $data
-            ]);
+            ], Response::HTTP_OK);
         } catch (Exception $e) {
             return response()->json([
                 "status" => $e->getMessage()
-            ]);
+            ],Response::HTTP_NOT_FOUND);
         }
     }
 }
