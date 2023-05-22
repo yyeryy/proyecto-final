@@ -25,26 +25,19 @@ class CreateWalletServiceTest extends TestCase
     /**
      * @test
      */
-    public function execute_return_wallet_correctly(){
-        /*$this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('1')->andReturn(Mockery::type(Wallet::class));
-        $this->CreateWalletServiceMock->execute('1');
-        $CreateWalletService = new CreateWalletService(new CacheUserDataSource, new CacheWalletDataSource);
-        $result = $CreateWalletService->execute('1');
-        $this->assertEquals('1', $result->getId());
+    public function execute_create_wallet_with_non_existing_user_id_test(){
+        $this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('2')->andReturn(null);
+        $result = $this->CreateWalletServiceMock->execute('2');
+        $this->assertEquals(null, $result);
+    }
 
-        $cacheUserDataSourceMock = Mockery::mock(CacheUserDataSource::class);
-        $cacheUserDataSourceMock->shouldReceive('findUserById')->once()->with('1')->andReturn('1');
-
-        $cacheWalletDataSourceMock = Mockery::mock(CacheWalletDataSource::class);
-        $cacheWalletDataSourceMock->shouldReceive('createWallet')->once()->with('1')->andReturn(Mockery::mock(Wallet::class));
-
-        $this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('1')->andReturn(Mockery::type(Wallet::class));
+    /**
+     * @test
+     */
+    public function execute_create_wallet_with_existing_user_id_test(){
+        $wallet = new Wallet('1');
+        $this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('1')->andReturn($wallet);
         $result = $this->CreateWalletServiceMock->execute('1');
-
-        $CreateWalletService = new CreateWalletService($cacheUserDataSourceMock, $cacheWalletDataSourceMock);
-
-        $result = $CreateWalletService->execute('1');
-
-        $this->assertEquals(new Wallet('1'), $result);*/
+        $this->assertEquals($wallet, $result);
     }
 }
