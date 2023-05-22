@@ -2,6 +2,7 @@
 
 namespace Tests\app\Application;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Mockery;
 use App\Domain\Wallet;
@@ -23,9 +24,10 @@ class WalletBalanceServiceTest extends TestCase
      * @test
      */
     public function execute_create_balance_with_no_coins_test(){
-        $this->WalletBalanceServiceMock->shouldReceive('execute')->once()->with('1')->andReturn(null);
-        $result = $this->WalletBalanceServiceMock->execute('1');
-        $this->assertEquals(null, $result);
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Coin Not found exception");
+        $this->WalletBalanceServiceMock->shouldReceive('execute')->once()->with('1')->andThrow(new Exception("Coin Not found exception"));
+        $this->WalletBalanceServiceMock->execute('1');
     }
 
     /**

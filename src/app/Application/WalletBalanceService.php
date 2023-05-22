@@ -20,7 +20,7 @@ class WalletBalanceService
         $wallet = $this->cacheWalletDataSource->findById($walletId);
         $coins = $wallet->getCoin();
         if(empty($coins)){
-            throw new Exception("No existen monedas en la wallet");
+            throw new Exception("Coin Not found exception");
         }
         $coins_str = "";
         foreach ($coins as $coin) {
