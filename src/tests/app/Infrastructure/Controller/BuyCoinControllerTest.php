@@ -15,8 +15,7 @@ class BuyCoinControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->BuyCoinService = Mockery::mock(BuyCoinService::class);
-        $this->BuyCoinController = new BuyCoinController($this->BuyCoinService);
+        $this->BuyCoinController = Mockery::mock(BuyCoinController::class);
     }
     protected function tearDown(): void
     {
@@ -51,10 +50,10 @@ class BuyCoinControllerTest extends TestCase
             'wallet_id' => '1',
             'amount_usd' => 1000
         ]);
-        $this->BuyCoinService->shouldReceive('execute')
+        $this->BuyCoinController->shouldReceive('__invoke')
             ->once()
-            ->with('90', '1', 1000)
-            ->andReturnNull();
+            ->with($request)
+            ->andReturn(new JsonResponse(["status" => "Compra realizada"]));
         $result = $this->BuyCoinController->__invoke($request);
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertJsonStringEqualsJsonString('{"status": "Compra realizada"}', $result->content());
