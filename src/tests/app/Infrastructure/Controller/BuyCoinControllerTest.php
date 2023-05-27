@@ -2,6 +2,7 @@
 
 namespace Tests\Infrastructure\Controllers;
 
+use App\Application\BuyCoinService;
 use App\Infrastructure\Controllers\BuyCoinController;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +15,8 @@ class BuyCoinControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->BuyCoinController = Mockery::mock(BuyCoinController::class);
+        $this->BuyCoinService = Mockery::mock(BuyCoinService::class);
+        $this->BuyCoinController = new BuyCoinController($this->BuyCoinService);
     }
     protected function tearDown(): void
     {
@@ -49,10 +51,10 @@ class BuyCoinControllerTest extends TestCase
             'wallet_id' => '1',
             'amount_usd' => 1000
         ]);
-        $this->BuyCoinController->shouldReceive('__invoke')
+        $this->BuyCoinService->shouldReceive('execute')
             ->once()
-            ->with($request)
-            ->andReturn(new JsonResponse(["status" => "Compra realizada"]));
+            ->with('90', '1', 1000)
+            ->andReturnNull();
         $result = $this->BuyCoinController->__invoke($request);
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertJsonStringEqualsJsonString('{"status": "Compra realizada"}', $result->content());
