@@ -2,20 +2,19 @@
 
 namespace App\Infrastructure\Controllers;
 
-use App\Application\BuyCoinService;
+use App\Application\SellCoinService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class BuyCoinController
+class SellCoinController
 {
+    private SellCoinService $sellCoinService;
 
-    private BuyCoinService $buyCoinService;
-
-    public function __construct(BuyCoinService $buyCoinService)
+    public function __construct(SellCoinService $sellCoinService)
     {
-        $this->buyCoinService = $buyCoinService;
+        $this->sellCoinService = $sellCoinService;
     }
     public function __invoke(Request $request)
     {
@@ -34,20 +33,22 @@ class BuyCoinController
         $user_id = $request->input("coin_id");
         $wallet_id = $request->input("wallet_id");
         $amount_usd = $request->input("amount_usd");
+
         if($amount_usd <= 0){
             return response()->json([
-                "errors" => "El amount no puede ser menor o igual que 0"
-            ], Response::HTTP_BAD_REQUEST);
+                "errors" => "El amount no puede ser menor o igual a 0"
+            ],Response::HTTP_BAD_REQUEST);
         }
+
         try {
-            $this->buyCoinService->execute($user_id, $wallet_id, $amount_usd);
+            $this->sellCoinService->execute($user_id, $wallet_id, $amount_usd);
             return response()->json([
-                "status" => "Compra realizada"
-            ], Response::HTTP_OK);
+                "status" => "Venta realizada"
+            ],Response::HTTP_OK);
         } catch (Exception $e) {
             return response()->json([
-                "errors" => $e->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+                "status" => $e->getMessage()
+            ],Response::HTTP_NOT_FOUND);
         }
     }
 }

@@ -1,39 +1,42 @@
 <?php
 
 namespace App\Infrastructure\Persistence;
+use App\Domain\User;
 use App\Domain\UserDataSource;
 use App\Domain\Wallet;
 use Illuminate\Support\Facades\Cache;
+use PHPUnit\Util\Exception;
+
+define("UNIQUE_USER_ID", "1");
 
 class CacheUserDataSource implements UserDataSource
 {
-
-    public function getUser_id()
+    //Obtenemos usuario de caché.
+    public function getUserFromCache(): User
     {
-        // TODO: Implement getUser_id() method.
-    }
+        // Comprobar si el usuario es 1, único usuario válido.
 
-    public function getWallet()
-    {
-        // TODO: Implement getWallet() method.
-    }
-
-    public function setUser_id(string $user_id)
-    {
-        // TODO: Implement setUser_id() method.
-    }
-
-    public function setWallet(Wallet $wallet)
-    {
-        // TODO: Implement setWallet() method.
+        $user = Cache::get('user:' . UNIQUE_USER_ID);
+        if(!$user)
+        {
+            throw new Exception("User Not found exception");
+        }
+        return $user;
     }
 
     public function findUserById(string $userId)
     {
         $user = Cache::get('user:' . $userId);
-        if ($user) {
-            return array($user[0], $user[1]);
+        if($userId == "1"){
+            if ($user) {
+                return $user;
+            }else {
+                Cache::put('user:' . $userId, $userId);
+                $user = Cache::get('user:' . $userId);
+                return $user;
+            }
         }
+
         return null;
     }
 }

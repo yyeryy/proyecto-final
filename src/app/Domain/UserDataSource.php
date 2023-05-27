@@ -3,23 +3,14 @@
 namespace App\Domain;
 
 use App\Domain\UserDataSource\private;
+use SebastianBergmann\Type\VoidType;
 
 Interface UserDataSource
 {
-    // Atributos
     /**
      * @var private string user_id; Indentificador del usuario.
      * @var private Wallet wallet; Cartera del usuario.
      */
-
-    // Getters
-    public function getUser_id();
-    public function getWallet();
-
-    // Setters
-    public function setUser_id(string $user_id);
-    public function setWallet(Wallet $wallet);
-
-    // Funciones
+    public function getUserFromCache(): User;
     public function findUserById(string $userId);
 }

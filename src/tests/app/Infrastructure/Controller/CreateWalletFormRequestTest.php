@@ -15,6 +15,7 @@ class CreateWalletFormRequestTest extends TestCase
         $createWalletFormRequest = new CreateWalletFormRequest();
 
         $rules = $createWalletFormRequest->rules();
+
         $this->assertArrayHasKey('user_id', $rules);
         $this->assertStringContainsString('required', $rules['user_id']);
         $this->assertStringContainsString('string', $rules['user_id']);

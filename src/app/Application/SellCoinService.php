@@ -2,18 +2,13 @@
 
 namespace App\Application;
 
-
 use App\Domain\CoinDataSource;
-use App\Domain\Wallet;
 use App\Domain\WalletDataSource;
+use Illuminate\Support\Facades\Cache;
 use App\Infrastructure\Persistence\APICoinDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
-use Illuminate\Database\Eloquent\Casts\Json;
-use Illuminate\Support\Facades\Cache;
-use PHPUnit\Util\Exception;
-use Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
 
-class BuyCoinService
+class SellCoinService
 {
     private WalletDataSource $walletDataSource;
     private CoinDataSource $coinDataSource;
@@ -26,9 +21,9 @@ class BuyCoinService
 
     public function execute($coinId, $walletId, $amountUsd): void
     {
-            $wallet = $this->walletDataSource->findById($walletId);
-            $coin = $this->coinDataSource->getById($coinId, $amountUsd);
-            $wallet->insertCoin($coin);
-            Cache::put('wallet:' . $walletId, $wallet);
+        $wallet = $this->walletDataSource->findById($walletId);
+        $coin = $this->coinDataSource->getById($coinId, $amountUsd);
+        $wallet->sellCoin($coin);
+        Cache::put('wallet:' . $walletId, $wallet);
     }
 }

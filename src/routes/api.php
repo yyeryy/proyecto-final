@@ -3,8 +3,14 @@
 use App\Infrastructure\Controllers\GetUserController;
 use App\Infrastructure\Controllers\IsEarlyAdopterUserController;
 use App\Infrastructure\Controllers\GetStatusController;
+use App\Infrastructure\Controllers\SellCoinController;
+
+use App\Infrastructure\Controllers\WalletBalanceController;
+use App\Infrastructure\Controllers\WalletCryptocurrenciesController;
+
 use Illuminate\Support\Facades\Route;
 use App\Infrastructure\Controllers\CreateWalletController;
+use App\Infrastructure\Controllers\BuyCoinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,33 +23,21 @@ use App\Infrastructure\Controllers\CreateWalletController;
 |
 */
 
-//Venia desde el principio.
+//Comprobar estado de la API:
 Route::get('/status', GetStatusController::class);
 
+//Abrir cartera:
 Route::post('/wallet/open', CreateWalletController::class);
 
-//Route::post('/wallet/open', CreateWalletController::class);
+//Comprar moneda:
+Route::post('/coin/buy', BuyCoinController::class);
 
-//CreateWallet
-//Route::get('/wallet/open', Get)
-/*
-Route::post('/coin/sell', function () {
-    return redirect('localhost:8088/api/coin/sell');
-});
+//Vender moneda:
+Route::post('/coin/sell', SellCoinController::class);
 
-Route::post('/coin/buy', function () {
-    return redirect('localhost:8088/api/coin/buy');
-});
+//Obtener balance:
+Route::get('/wallet/{wallet_id}/balance', WalletBalanceController::class);
 
-Route::post('/wallet/open', function () {
-    return redirect('localhost:8088/api/wallet/open');
-});
+//Obtener cryptomonedas:
+Route::get('/wallet/{wallet_id}', WalletCryptocurrenciesController::class);
 
-Route::get('/wallet/{wallet_id}', function ($wallet_id) {
-    return redirect('localhost:8088/api/wallet/' . $wallet_id);
-});
-
-Route::get('/wallet/{wallet_id}/balance', function ($wallet_id) {
-    return redirect('localhost:8088/api/wallet/' . $wallet_id . '/balance');
-});
-*/

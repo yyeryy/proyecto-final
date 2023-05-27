@@ -24,8 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        $this->app->bind(UserDataSource::class, function () {
-//            return new EloquentUserDataSource();
-//        });
+        /*
+        $this->app->bind(UserDataSource::class, function () {
+            return new EloquentUserDataSource();
+        });
+
+        $this->app->bind(WalletDataSource::class, function () {
+            return new WalletDataSourceImplementation();
+        });
+
+        $this->app->bind(CoinDataSource::class, function () {
+            return new CoinDataSourceImplementation();
+        });
+        */
     }
 }

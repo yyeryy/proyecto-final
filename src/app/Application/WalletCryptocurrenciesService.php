@@ -2,14 +2,12 @@
 
 namespace App\Application;
 
-
 use App\Domain\UserDataSource;
 use App\Domain\WalletDataSource;
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
-use PHPUnit\Util\Exception;
 
-class CreateWalletService
+class WalletCryptocurrenciesService
 {
     private UserDataSource $userDataSource;
     private WalletDataSource $walletDataSource;
@@ -19,14 +17,8 @@ class CreateWalletService
         $this->userDataSource = $userDataSource;
         $this->walletDataSource = $walletDataSource;
     }
-    public function execute(string $user_id)
+    public function execute(string $walletId)
     {
-        //Si el usuario no existe no creamos cartera.
-        if($this->userDataSource->findUserById($user_id) == null)
-        {
-            throw new Exception("User Not found exception");
-        }
-        //Si el usuario existe creamos cartera
-        return $this->walletDataSource->createWallet($user_id);
+        return $this->walletDataSource->findById($walletId);
     }
 }
