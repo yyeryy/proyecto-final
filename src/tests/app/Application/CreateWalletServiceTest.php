@@ -10,7 +10,6 @@ use App\Domain\WalletDataSource;
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Mockery;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 class CreateWalletServiceTest extends TestCase
