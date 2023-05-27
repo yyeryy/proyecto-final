@@ -6,7 +6,7 @@ use App\Domain\CoinDataSource;
 
 class Coin
 {
-    private string $coin_id;
+    private int $coin_id;
     private string $name;
     private string $symbol;
     private float $amount;
@@ -14,7 +14,7 @@ class Coin
     private int $rank;
 
     /**
-     * @param string $coin_id
+     * @param int $coin_id
      * @param string $name
      * @param string $symbol
      * @param float $amount
@@ -33,9 +33,9 @@ class Coin
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCoinId(): string
+    public function getCoinId(): int
     {
         return $this->coin_id;
     }
