@@ -24,6 +24,7 @@ class BuyCoinService
         $this->coinDataSource = $coinDataSource;
     }
 
+
     public function execute($coinId, $walletId, $amountUsd): void
     {
             $wallet = $this->walletDataSource->findById($walletId);
