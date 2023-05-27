@@ -2,21 +2,23 @@
 
 namespace App\Application;
 
+use App\Domain\UserDataSource;
+use App\Domain\WalletDataSource;
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
 
 class WalletCryptocurrenciesService
 {
-    private CacheUserDataSource $cacheUserDataSource;
-    private CacheWalletDataSource $cacheWalletDataSource;
+    private UserDataSource $userDataSource;
+    private WalletDataSource $walletDataSource;
 
-    public function __construct()
+    public function __construct(UserDataSource $userDataSource, WalletDataSource $walletDataSource)
     {
-        $this->cacheUserDataSource = new cacheUserDataSource();
-        $this->cacheWalletDataSource = new cacheWalletDataSource();
+        $this->userDataSource = $userDataSource;
+        $this->walletDataSource = $walletDataSource;
     }
     public function execute(string $walletId)
     {
-        return $this->cacheWalletDataSource->findById($walletId);
+        return $this->walletDataSource->findById($walletId);
     }
 }
