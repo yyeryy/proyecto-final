@@ -35,6 +35,6 @@ class APIClientTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Coin Not found exception");
         $APIClient = new APIClient();
-        $APIClient->getCoinDataWithId('50000');
+        $APIClient->getCoinDataWithId('50A000');
     }
 }

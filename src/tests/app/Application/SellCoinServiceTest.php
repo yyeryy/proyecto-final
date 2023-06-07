@@ -2,21 +2,21 @@
 
 namespace Tests\app\Application;
 
-use App\Application\BuyCoinService;
+use App\Application\SellCoinService;
 use App\Domain\Coin;
 use App\Domain\Wallet;
 use App\Infrastructure\Persistence\APICoinDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
-use Mockery;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Facades\Cache;
+use PHPUnit\Framework\TestCase;
+use Mockery;
 
-class BuyCoinServiceTest extends TestCase
+class SellCoinServiceTest extends TestCase
 {
     /**
      * @test
      */
-    public function execute_buy_coin_with_existing_wallet_id_test(){
+    public function execute_sell_coin_with_existing_wallet_id_test(){
         $wallet = new Wallet('1');
         $walletId = '1';
         $coin = new Coin(90, 'Bitcoin', 'BTC', 2, 500, 1);
@@ -28,12 +28,12 @@ class BuyCoinServiceTest extends TestCase
 
         $this->cacheWalletDataSourceMock->shouldReceive('findById')->once()->with('1')->andReturn($this->WalletMock);
         $this->APICoinDataSourceMock->shouldReceive('getById')->once()->with('90', 500)->andReturn($coin);
-        $this->WalletMock->shouldReceive('insertCoin')->once()->with($coin);
+        $this->WalletMock->shouldReceive('sellCoin')->once()->with($coin);
         $this->cacheMock->shouldReceive('put')->once()->with('wallet:' . $walletId, Mockery::type(Wallet::class));
         $this->cacheMock->shouldReceive('get')->once()->with('wallet:' . $walletId)->andReturn($wallet);
 
-        $buyCoinService = new BuyCoinService($this->cacheWalletDataSourceMock, $this->APICoinDataSourceMock);
-        $buyCoinService->execute(90, '1', 500);
+        $sellCoinService = new SellCoinService($this->cacheWalletDataSourceMock, $this->APICoinDataSourceMock);
+        $sellCoinService->execute(90, '1', 500);
 
         $cachedWallet = $this->cacheMock->get('wallet:' . $walletId);
         $this->assertSame($cachedWallet,$wallet);
