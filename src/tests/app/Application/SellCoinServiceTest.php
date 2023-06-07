@@ -16,6 +16,22 @@ class SellCoinServiceTest extends TestCase
     /**
      * @test
      */
+    public function execute_sell_coin_with_not_existing_wallet_id_test(){
+        $this->cacheWalletDataSourceMock = Mockery::mock(CacheWalletDataSource::class);
+        $this->APICoinDataSourceMock = Mockery::mock(APICoinDataSource::class);
+
+        $this->cacheWalletDataSourceMock->shouldReceive('findById')->once()->with('2')->andReturn(null);
+
+        $sellCoinService = new SellCoinService($this->cacheWalletDataSourceMock, $this->APICoinDataSourceMock);
+
+        $this->expectException(\Exception::class);
+
+        $sellCoinService->execute(90, '2', 500);
+    }
+
+    /**
+     * @test
+     */
     public function execute_sell_coin_with_existing_wallet_id_test(){
         $wallet = new Wallet('1');
         $walletId = '1';
