@@ -1,0 +1,6 @@
+name: GrumPHP
+
+on: 
+  push:
+    branches:
+      - '*'
