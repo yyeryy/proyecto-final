@@ -1,6 +1,5 @@
 {
     "require": {
-        "phpro/grumphp": "^1.3",
         "illuminate/cache": "^10.10"
     }
 }
