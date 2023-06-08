@@ -2,4 +2,7 @@
     "require": {
         "illuminate/cache": "^10.10"
     }
+    "require-dev": {
+        "phpro/grumphp": "^1.3"
+    }
 }
