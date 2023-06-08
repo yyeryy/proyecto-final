@@ -15,6 +15,7 @@ jobs:
 
       - name: Install dependencies
         run: composer install --ignore-platform-reqs
-
+      - name: Run PHPunit
+        run: ./vendor/bin/phpunit
       - name: Run GrumPHP
         run: ./vendor/bin/grumphp run
