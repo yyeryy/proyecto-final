@@ -12,8 +12,8 @@ class CacheWalletDataSource implements WalletDataSource
 {
     public function createWallet(string $userid)
     {
-        //$wallet = Cache::get('wallet:' . $userid);
-        $wallet = $this->findById($userid);
+        $wallet = Cache::get('wallet:' . $userid);
+        //$wallet = $this->findById($userid);
         if(!$wallet) {
             $wallet = new Wallet($userid);
             Cache::put('wallet:' . $userid, $wallet);

@@ -5,6 +5,7 @@ namespace App\Application;
 
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
+use PHPUnit\Util\Exception;
 
 class CreateWalletService
 {
@@ -21,7 +22,7 @@ class CreateWalletService
         //Si el usuario no existe no creamos cartera.
         if($this->cacheUserDataSource->findUserById($user_id) == null)
         {
-            return null;
+            throw new Exception("User Not found exception");
         }
         //Si el usuario existe creamos cartera
         return $this->cacheWalletDataSource->createWallet($user_id);
