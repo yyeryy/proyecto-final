@@ -20,11 +20,9 @@ class CacheWalletDataSource implements WalletDataSource
 
     public function createWallet(string $userid)
     {
-        //$wallet = Cache::get('wallet:' . $userid);
         $wallet = $this->cache->get('wallet:' . $userid);
         if (!$wallet) {
             $wallet = new Wallet($userid);
-            //Cache::put('wallet:' . $userid, $wallet);
             $this->cache->put('wallet:' . $userid, $wallet);
             return $wallet;
         }
@@ -33,7 +31,6 @@ class CacheWalletDataSource implements WalletDataSource
 
     public function findById(string $walletId)
     {
-        //$wallet = Cache::get('wallet:' . $walletId);
         $wallet = $this->cache->get('wallet:' . $walletId);
         if ($wallet) {
             return $wallet;
