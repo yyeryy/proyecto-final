@@ -60,10 +60,10 @@ class WalletBalanceControllerTest extends TestCase
         $request = Request::create('/wallet/2/balance', 'GET', [],[],[],[],$requestData);
         $this->WalletBalanceServiceMock->shouldReceive('execute')
             ->once()
-            ->with('1')
+            ->with('2')
             ->andThrow(new Exception("Wallet not found exception"));
 
-        $result = $this->WalletBalanceController->__invoke($request, '1');
+        $result = $this->WalletBalanceController->__invoke($request, '2');
 
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertJsonStringEqualsJsonString('{"status": "Wallet not found exception"}', $result->content());
