@@ -39,6 +39,11 @@ class SellCoinController
                 "errors" => "El amount no puede ser menor o igual a 0"
             ],Response::HTTP_BAD_REQUEST);
         }
+        if($wallet_id != 1){
+            return response()->json([
+                "errors" => "El id de la wallet es invalido"
+            ]);
+        }
 
         try {
             $this->sellCoinService->execute($user_id, $wallet_id, $amount_usd);
