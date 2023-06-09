@@ -25,27 +25,30 @@ class CreateWalletControllerTest extends TestCase
      */
     public function invalid_wallet_id_test()
     {
-        $requestData = json_encode(array('wallet_id' => '2'));
-        $request = Request::create('/wallet/open', 'POST', [],[],[],[],$requestData);
-        $this->CreateWalletServiceMock->shouldReceive('__invoke')
-            ->once()
-            ->with($request, '2')
-            ->andReturn(new JsonResponse(['status' => 'ERROR: usuario no existe']));
+        $request = Request::create('/wallet/open', 'POST', [
+            'user_id' => '2'
+        ]);
+        $this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('2')->andReturn(null);
 
-        $result = $this->CreateWalletController->__invoke($request, '2');
+        $result = $this->CreateWalletController->__invoke($request);
+
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertJsonStringEqualsJsonString('{"status": "ERROR: usuario no existe"}', $result->content());
     }
+
     /**
      * @test
      */
     public function get_wallet_id_test()
     {
         $wallet = new Wallet('1');
-        $requestData = json_encode(array('user_id' => '1'));
-        $request = Request::create('/wallet/open', 'POST', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/open', 'POST', [
+            'user_id' => '1'
+        ]);
         $this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('1')->andReturn($wallet);
+
         $result = $this->CreateWalletController->__invoke($request);
+
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertJsonStringEqualsJsonString('{"walletID": "1"}', $result->content());
     }
