@@ -1,0 +1,19 @@
+name: CI-CD
+
+on:
+  push:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:    
+      - uses: actions/checkout@v3
+      
+      - name: Instalar contenedor
+      - run:  composer install
+      
+      - name: Test
+      - run: ./vendor/bin/phpunit
+      
+      - name: Estilo
+      - run: ./vendor/bin/grumphp run
