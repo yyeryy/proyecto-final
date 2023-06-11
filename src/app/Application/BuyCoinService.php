@@ -27,9 +27,9 @@ class BuyCoinService
 
     public function execute($coinId, $walletId, $amountUsd): void
     {
-            $wallet = $this->walletDataSource->findById($walletId);
-            $coin = $this->coinDataSource->getById($coinId, $amountUsd);
-            $wallet->insertCoin($coin);
-            Cache::put('wallet:' . $walletId, $wallet);
+        $wallet = $this->walletDataSource->findById($walletId);
+        $coin = $this->coinDataSource->getById($coinId, $amountUsd);
+        $wallet->insertCoin($coin);
+        Cache::put('wallet:' . $walletId, $wallet);
     }
 }

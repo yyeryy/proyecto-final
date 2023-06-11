@@ -13,16 +13,16 @@ class CreateWalletController
 {
     private CreateWalletService $createWalletService;
 
-    public function __construct()
+    public function __construct(CreateWalletService $createWalletService)
     {
-        $this->createWalletService = new CreateWalletService(new CacheUserDataSource(), new CacheWalletDataSource());
+        $this->createWalletService = $createWalletService;
     }
 
     public function __invoke(Request $request)
     {
         $validator = Validator::make($request->all(),
         [
-            "user_id" => "required|string",
+            "user_id" => "required|string"
         ]);
         if($validator->fails()){
             return response()->json([
