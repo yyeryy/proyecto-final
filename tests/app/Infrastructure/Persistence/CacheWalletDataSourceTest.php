@@ -8,7 +8,7 @@ use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Tests\TestCase;
 use Mockery;
-use Mockery\Container;
+
 
 class CacheWalletDataSourceTest extends TestCase
 {
@@ -16,8 +16,7 @@ class CacheWalletDataSourceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $container = new Container();
-        $this->cacheMock = $container->mock(CacheRepository::class);
+        $this->cacheMock = Mockery::mock(CacheRepository::class);
     }
 
     /**
