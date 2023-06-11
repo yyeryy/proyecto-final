@@ -80,12 +80,10 @@ class Wallet
             if($this->coins[$key]->getAmount() > $coin->getAmount()){
                 $this->coins[$key]->setAmount($this->coins[$key]->getAmount() - $coin->getAmount());
                 $this->coins[$key]->setValueUsd($this->coins[$key]->getValueUsd() - $coin->getValueUsd());
+            } else if($this->coins[$key]->getAmount() == $coin->getAmount()){
+                array_splice($this->coins, $key,1);
             } else{
-                //En un principio hemos añadido un else if que comprobaba si el amount proporcionado por el usuario
-                //para vender era igual al amount que tenía para que solamente se pudieran vender en caso de ser
-                //menor o igual a la cantidad que tenía, pero quedaría al cambiar el precio de las criptomonedas cada
-                //poco tiempo una cantidad muy pequeña de moneda, así que lo vendemos todo.
-                array_splice($this->coins, $key, 1);
+                throw new Exception("No se puede vender mas de lo que tienes");
             }
         } else {
             throw new Exception("No existe esa moneda en la wallet");

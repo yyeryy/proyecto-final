@@ -23,6 +23,5 @@ class SellCoinService
         $coin = $this->apiCoinDataSource->getById($coinId, $amountUsd);
         $wallet->sellCoin($coin);
         Cache::put('wallet:' . $walletId, $wallet);
-        //return $wallet->getCoin();
     }
 }

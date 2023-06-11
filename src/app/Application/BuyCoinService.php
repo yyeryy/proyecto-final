@@ -22,11 +22,12 @@ class BuyCoinService
         $this->apiCoinDataSource = $apiCoinDataSource;
     }
 
+
     public function execute($coinId, $walletId, $amountUsd): void
     {
-            $wallet = $this->cacheWalletDataSource->findById($walletId);
-            $coin = $this->apiCoinDataSource->getById($coinId, $amountUsd);
-            $wallet->insertCoin($coin);
-            Cache::put('wallet:' . $walletId, $wallet);
+        $wallet = $this->cacheWalletDataSource->findById($walletId);
+        $coin = $this->apiCoinDataSource->getById($coinId, $amountUsd);
+        $wallet->insertCoin($coin);
+        Cache::put('wallet:' . $walletId, $wallet);
     }
 }

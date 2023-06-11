@@ -4,13 +4,14 @@ namespace Tests\Infrastructure\Controllers;
 
 use App\Application\SellCoinService;
 use App\Infrastructure\Controllers\SellCoinController;
+use App\Infrastructure\Persistence\APIClient;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
 use App\Infrastructure\Persistence\APICoinDataSource;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SellCoinControllerTest extends TestCase
@@ -18,14 +19,26 @@ class SellCoinControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->BuyCoinController = Mockery::mock(SellCoinController::class);
+        $this->sellCoinServiceMock = Mockery::mock(SellCoinService::class);
+        $this->SellCoinController = new SellCoinController($this->sellCoinServiceMock);
     }
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
+
+    /**
+     * @test
+     */
+    public function do_correctly_buy_coin_test(){
+        $request = Request::create('/coin/sell', 'POST', [
+            'coin_id' => '90',
+            'wallet_id' => '1',
+            'amount_usd' => 1000
+        ]);
+        $this->sellCoinServiceMock->shouldReceive('execute')->once()->with(90, '1', 1000);
+
+        $result = $this->SellCoinController->__invoke($request);
+
+        $this->assertInstanceOf(JsonResponse::class, $result);
+        $this->assertJsonStringEqualsJsonString('{"status": "Venta realizada"}', $result->content());
     }
-    use RefreshDatabase;
 
     /**
      * @test
@@ -36,66 +49,52 @@ class SellCoinControllerTest extends TestCase
             'wallet_id' => '1',
             'amount_usd' => -100
         ]);
-        $this->BuyCoinController->shouldReceive('__invoke')
-            ->once()
-            ->with($request)
-            ->andReturn(new JsonResponse(["errors" => "El amount no puede ser menor o igual que 0"]));
-        $result = $this->BuyCoinController->__invoke($request);
+
+        $result = $this->SellCoinController->__invoke($request);
+
         $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertJsonStringEqualsJsonString('{"errors": "El amount no puede ser menor o igual que 0"}', $result->content());
+        $this->assertJsonStringEqualsJsonString('{"errors": "El amount no puede ser menor o igual a 0"}', $result->content());
     }
 
     /**
      * @test
      */
-    public function do_correctly_sell_coin_test(){
-        $request = Request::create('/coin/sell', 'POST', [
-            'coin_id' => '90',
-            'wallet_id' => '1',
-            'amount_usd' => 1000
-        ]);
-        $this->BuyCoinController->shouldReceive('__invoke')
-            ->once()
-            ->with($request)
-            ->andReturn(new JsonResponse(["status" => "Venta realizada"]));
-        $result = $this->BuyCoinController->__invoke($request);
-        $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertJsonStringEqualsJsonString('{"status": "Venta realizada"}', $result->content());
-    }
-
-    /**
-     * @test
-     */
-    public function invalid_coin_Id_throw_exception_test(){
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage("Coin Not found exception");
+    public function invalid_coin_throw_exception_test()
+    {
         $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '50000',
             'wallet_id' => '1',
-            'amount_usd' => 1000
+            'amount_usd' => 100
         ]);
-        $this->BuyCoinController->shouldReceive('__invoke')
+        $this->sellCoinServiceMock->shouldReceive('execute')
             ->once()
-            ->with($request)
-            ->andThrow(new Exception("Coin Not found exception"));
-        $this->BuyCoinController->__invoke($request);
+            ->with('50000', '1', 100)
+            ->andThrow(new Exception("Coin not found exception"));
+
+        $result = $this->SellCoinController->__invoke($request);
+
+        $this->assertInstanceOf(JsonResponse::class, $result);
+        $this->assertJsonStringEqualsJsonString('{"status": "Coin not found exception"}', $result->content());
     }
 
     /**
      * @test
      */
-    public function invalid_wallet_Id_throw_exception_test(){
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage("Wallet Not found exception");
+    public function invalid_wallet_id_throw_exception_test()
+    {
         $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '90',
             'wallet_id' => '2',
-            'amount_usd' => 1000
+            'amount_usd' => 100
         ]);
-        $this->BuyCoinController->shouldReceive('__invoke')
+        $this->sellCoinServiceMock->shouldReceive('execute')
             ->once()
-            ->with($request)
-            ->andThrow(new Exception("Wallet Not found exception"));
-        $this->BuyCoinController->__invoke($request);
+            ->with('90', '2', 100)
+            ->andThrow(new Exception("Wallet not found exception"));
+
+        $result = $this->SellCoinController->__invoke($request);
+
+        $this->assertInstanceOf(JsonResponse::class, $result);
+        $this->assertJsonStringEqualsJsonString('{"status": "Wallet not found exception"}', $result->content());
     }
 }

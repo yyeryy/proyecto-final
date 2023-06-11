@@ -22,6 +22,7 @@ class Coin
      * @param int $rank
      */
     public function __construct(int $coin_id, string $name, string $symbol, float $amount, float $value_usd, int $rank)
+
     {
         $this->coin_id = $coin_id;
         $this->name = $name;

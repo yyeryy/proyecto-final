@@ -28,7 +28,7 @@ class BuyCoinController
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $user_id = $request->input("coin_id");
+        $coin_id = $request->input("coin_id");
         $wallet_id = $request->input("wallet_id");
         $amount_usd = $request->input("amount_usd");
         if($amount_usd <= 0){
@@ -38,7 +38,7 @@ class BuyCoinController
         }
 
         try {
-            $this->buyCoinService->execute($user_id, $wallet_id, $amount_usd);
+            $this->buyCoinService->execute($coin_id, $wallet_id, $amount_usd);
             return response()->json([
                 "status" => "Compra realizada"
             ]);
