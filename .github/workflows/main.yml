@@ -15,6 +15,9 @@ jobs:
       
       - name: Test
         run: ./vendor/bin/phpunit
+        
+      - name: Code Sniffer
+        run: ./vendor/bin/phpcs app
       
-      - name: Estilo
+      - name: Mess Detector
         run: ./vendor/bin/grumphp run
