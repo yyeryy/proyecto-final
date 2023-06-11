@@ -1,16 +1,8 @@
 grumphp:
   tasks:
-#    phpmd:
-#      whitelist_patterns: []
-#      exclude: []
-#      report_format: text
-#      ruleset: ['cleancode', 'codesize', 'naming']
-#      triggered_by: ['php']
-#    phpcs:
-#      standard: PSR12
-#      whitelist_patterns: []
-#      exclude: []
-#      show_sniffs_error_path: true
+    phpmd:
+      ruleset: ['cleancode', 'codesize', 'naming']
+    phpcs:
+      standard: PSR12
     phpunit:
       always_execute: false
-      order: null
