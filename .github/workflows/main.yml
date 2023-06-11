@@ -6,14 +6,15 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    steps:    
-      - uses: actions/checkout@v3
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
       
       - name: Instalar contenedor
-      - run:  composer install
+        run: composer install
       
       - name: Test
-      - run: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit
       
       - name: Estilo
-      - run: ./vendor/bin/grumphp run
+        run: ./vendor/bin/grumphp run
