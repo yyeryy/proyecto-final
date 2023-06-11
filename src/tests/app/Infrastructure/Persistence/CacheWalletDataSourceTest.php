@@ -16,7 +16,6 @@ class CacheWalletDataSourceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        //$this->cacheMock = Mockery::mock(CacheRepository::class);
         $container = new Container();
         $this->cacheMock = $container->mock(CacheRepository::class);
     }
