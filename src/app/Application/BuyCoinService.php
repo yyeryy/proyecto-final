@@ -2,7 +2,6 @@
 
 namespace App\Application;
 
-
 use App\Domain\Wallet;
 use App\Infrastructure\Persistence\APICoinDataSource;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
@@ -11,21 +10,24 @@ use Illuminate\Support\Facades\Cache;
 use PHPUnit\Util\Exception;
 use Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class BuyCoinService
 {
-    private CacheWalletDataSource $cacheWalletDataSource;
+    private CacheWalletDataSource $cacheWallet;
     private APICoinDataSource $apiCoinDataSource;
 
-    public function __construct(CacheWalletDataSource $cacheWalletDataSource, APICoinDataSource $apiCoinDataSource)
+    public function __construct(CacheWalletDataSource $cacheWallet, APICoinDataSource $apiCoinDataSource)
     {
-        $this->cacheWalletDataSource = $cacheWalletDataSource;
+        $this->cacheWallet = $cacheWallet;
         $this->apiCoinDataSource = $apiCoinDataSource;
     }
 
 
     public function execute($coinId, $walletId, $amountUsd): void
     {
-        $wallet = $this->cacheWalletDataSource->findById($walletId);
+        $wallet = $this->cacheWallet->findById($walletId);
         $coin = $this->apiCoinDataSource->getById($coinId, $amountUsd);
         $wallet->insertCoin($coin);
         Cache::put('wallet:' . $walletId, $wallet);
