@@ -10,6 +10,9 @@ use Tests\TestCase;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class WalletBalanceControllerTest extends TestCase
 {
     protected function setUp(): void
@@ -22,24 +25,27 @@ class WalletBalanceControllerTest extends TestCase
     /**
      * @test
      */
-    public function invalid_wallet_Id_test()
+    public function invalidWalletIdTest()
     {
         $requestData = json_encode(array('wallet_id' => 'h'));
-        $request = Request::create('/wallet/h/balance', 'GET', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/h/balance', 'GET', [], [], [], [], $requestData);
 
         $result = $this->WalletBalanceController->__invoke($request, 'h');
 
         $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertJsonStringEqualsJsonString('{"status": "ERROR: Los parametros introducidos no son validos."}', $result->content());
+        $this->assertJsonStringEqualsJsonString(
+            '{"status": "ERROR: Los parametros introducidos no son validos."}',
+            $result->content()
+        );
     }
 
     /**
      * @test
      */
-    public function get_correctly_balance_test()
+    public function getCorrectlyBalanceTest()
     {
         $requestData = json_encode(array('wallet_id' => '1'));
-        $request = Request::create('/wallet/1/balance', 'GET', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/1/balance', 'GET', [], [], [], [], $requestData);
         $this->WalletBalanceServiceMock->shouldReceive('execute')
             ->once()
             ->with('1')
@@ -54,10 +60,10 @@ class WalletBalanceControllerTest extends TestCase
     /**
      * @test
      */
-    public function invalid_wallet_Id_throw_exception_test()
+    public function invalidWalletIdThrowExceptionTest()
     {
         $requestData = json_encode(array('wallet_id' => '2'));
-        $request = Request::create('/wallet/2/balance', 'GET', [],[],[],[],$requestData);
+        $request = Request::create('/wallet/2/balance', 'GET', [], [], [], [], $requestData);
         $this->WalletBalanceServiceMock->shouldReceive('execute')
             ->once()
             ->with('2')
