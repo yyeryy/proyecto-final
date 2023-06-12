@@ -5,13 +5,16 @@ namespace Tests\app\Infrastructure\Controller;
 use App\Infrastructure\Controllers\WalletCryptocurrenciesFormRequest;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class WalletCryptocurrenciesFormRequestTest extends TestCase
 {
 
     /**
      * @test
      */
-    public function formRequest_validates_coin_id_parameter()
+    public function formRequestValidatesCoinIdParameter()
     {
         $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
 
@@ -24,7 +27,7 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function formRequest_validates_name_parameter()
+    public function formRequestValidatesNameParameter()
     {
         $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
 
@@ -37,7 +40,7 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function formRequest_validates_symbol_parameter()
+    public function formRequestValidatesSymbolParameter()
     {
         $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
 
@@ -50,7 +53,7 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function formRequest_validates_amount_parameter()
+    public function formRequestValidatesAmountParameter()
     {
         $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
 
@@ -63,7 +66,7 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function formRequest_validates_value_usd_parameter()
+    public function formRequestValidatesValueUsdParameter()
     {
         $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
 
