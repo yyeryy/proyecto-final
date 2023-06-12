@@ -11,6 +11,9 @@ use Tests\TestCase;
 use Exception;
 use Mockery;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class CreateWalletControllerTest extends TestCase
 {
     protected function setUp(): void
@@ -23,7 +26,7 @@ class CreateWalletControllerTest extends TestCase
     /**
      * @test
      */
-    public function invalid_wallet_id_test()
+    public function invalidWalletIdTest()
     {
         $request = Request::create('/wallet/open', 'POST', [
             'user_id' => '2'
@@ -39,7 +42,7 @@ class CreateWalletControllerTest extends TestCase
     /**
      * @test
      */
-    public function get_wallet_id_test()
+    public function getWalletIdTest()
     {
         $wallet = new Wallet('1');
         $request = Request::create('/wallet/open', 'POST', [
