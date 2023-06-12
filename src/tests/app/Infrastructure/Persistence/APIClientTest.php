@@ -7,12 +7,16 @@ use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class APIClientTest extends TestCase
 {
     /**
      * @test
      */
-    public function get_coin_data_with_Id_correctly_test(){
+    public function getCoinDataWithIdCorrectlyTest()
+    {
         $coinData = [
             [
                 'id' => 90,
@@ -28,10 +32,12 @@ class APIClientTest extends TestCase
         $this->assertIsArray($result);
         $this->assertEquals('Bitcoin', $result[0]['name']);
     }
+
     /**
      * @test
      */
-    public function get_coin_data_with_incorrectly_Id_test(){
+    public function getCoinDataWithIncorrectlyIdTest()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Coin Not found exception");
         $APIClient = new APIClient();
