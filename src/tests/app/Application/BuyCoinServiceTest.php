@@ -11,12 +11,16 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class BuyCoinServiceTest extends TestCase
 {
     /**
      * @test
      */
-    public function execute_buy_coin_with_not_existing_wallet_id_test(){
+    public function executeBuyCoinWithNotExistingWalletIdTest()
+    {
         $this->cacheWalletDataSourceMock = Mockery::mock(CacheWalletDataSource::class);
         $this->APICoinDataSourceMock = Mockery::mock(APICoinDataSource::class);
 
@@ -32,7 +36,8 @@ class BuyCoinServiceTest extends TestCase
     /**
      * @test
      */
-    public function execute_buy_coin_with_existing_wallet_id_test(){
+    public function executeBuyCoinWithExistingWalletIdTest()
+    {
         $wallet = new Wallet('1');
         $walletId = '1';
         $coin = new Coin(90, 'Bitcoin', 'BTC', 2, 500, 1);
@@ -40,7 +45,7 @@ class BuyCoinServiceTest extends TestCase
         $this->cacheWalletDataSourceMock = Mockery::mock(CacheWalletDataSource::class);
         $this->APICoinDataSourceMock = Mockery::mock(APICoinDataSource::class);
         $this->WalletMock = Mockery::mock(Wallet::class);
-        $this->cacheMock = Mockery::mock('alias:'.Cache::class);
+        $this->cacheMock = Mockery::mock('alias:' . Cache::class);
 
         $this->cacheWalletDataSourceMock->shouldReceive('findById')->once()->with('1')->andReturn($this->WalletMock);
         $this->APICoinDataSourceMock->shouldReceive('getById')->once()->with('90', 500)->andReturn($coin);
@@ -52,6 +57,6 @@ class BuyCoinServiceTest extends TestCase
         $buyCoinService->execute(90, '1', 500);
 
         $cachedWallet = $this->cacheMock->get('wallet:' . $walletId);
-        $this->assertSame($cachedWallet,$wallet);
+        $this->assertSame($cachedWallet, $wallet);
     }
 }
