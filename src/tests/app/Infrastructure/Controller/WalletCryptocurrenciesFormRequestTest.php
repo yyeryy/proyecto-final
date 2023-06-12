@@ -10,15 +10,14 @@ use PHPUnit\Framework\TestCase;
  */
 class WalletCryptocurrenciesFormRequestTest extends TestCase
 {
-
     /**
      * @test
      */
     public function formRequestValidatesCoinIdParameter()
     {
-        $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
+        $walletFormRequest = new WalletCryptocurrenciesFormRequest();
 
-        $rules = $walletCryptocurrenciesFormRequest->rules();
+        $rules = $walletFormRequest->rules();
         $this->assertArrayHasKey('coin_id', $rules);
         $this->assertStringContainsString('required', $rules['coin_id']);
         $this->assertStringContainsString('string', $rules['coin_id']);
@@ -29,9 +28,9 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
      */
     public function formRequestValidatesNameParameter()
     {
-        $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
+        $walletFormRequest = new WalletCryptocurrenciesFormRequest();
 
-        $rules = $walletCryptocurrenciesFormRequest->rules();
+        $rules = $walletFormRequest->rules();
         $this->assertArrayHasKey('name', $rules);
         $this->assertStringContainsString('required', $rules['name']);
         $this->assertStringContainsString('string', $rules['name']);
@@ -42,9 +41,9 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
      */
     public function formRequestValidatesSymbolParameter()
     {
-        $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
+        $walletFormRequest = new WalletCryptocurrenciesFormRequest();
 
-        $rules = $walletCryptocurrenciesFormRequest->rules();
+        $rules = $walletFormRequest->rules();
         $this->assertArrayHasKey('symbol', $rules);
         $this->assertStringContainsString('required', $rules['symbol']);
         $this->assertStringContainsString('string', $rules['symbol']);
@@ -55,9 +54,9 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
      */
     public function formRequestValidatesAmountParameter()
     {
-        $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
+        $walletFormRequest = new WalletCryptocurrenciesFormRequest();
 
-        $rules = $walletCryptocurrenciesFormRequest->rules();
+        $rules = $walletFormRequest->rules();
         $this->assertArrayHasKey('amount', $rules);
         $this->assertStringContainsString('required', $rules['amount']);
         $this->assertStringContainsString('numeric', $rules['amount']);
@@ -68,9 +67,9 @@ class WalletCryptocurrenciesFormRequestTest extends TestCase
      */
     public function formRequestValidatesValueUsdParameter()
     {
-        $walletCryptocurrenciesFormRequest = new WalletCryptocurrenciesFormRequest();
+        $walletFormRequest = new WalletCryptocurrenciesFormRequest();
 
-        $rules = $walletCryptocurrenciesFormRequest->rules();
+        $rules = $walletFormRequest->rules();
         $this->assertArrayHasKey('value_usd', $rules);
         $this->assertStringContainsString('required', $rules['value_usd']);
         $this->assertStringContainsString('numeric', $rules['value_usd']);
