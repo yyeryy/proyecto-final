@@ -17,7 +17,7 @@ class WalletBalanceController
     }
     public function __invoke(Request $request, $wallet_id)
     {
-        if(!is_numeric($wallet_id)){
+        if (!is_numeric($wallet_id)) {
             return response()->json([
                 "status" => "ERROR: Los parametros introducidos no son validos."
             ]);
