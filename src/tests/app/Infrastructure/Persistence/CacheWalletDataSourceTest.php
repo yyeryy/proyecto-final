@@ -10,14 +10,16 @@ use Tests\TestCase;
 use Mockery;
 use Mockery\Container;
 
+/**
+ * @test
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class CacheWalletDataSourceTest extends TestCase
 {
-    protected $cacheMock;
     protected function setUp(): void
     {
         parent::setUp();
-        $container = new Container();
-        $this->cacheMock = $container->mock(CacheRepository::class);
+        $this->cacheMock = Mockery::mock(CacheRepository::class);
     }
 
     /**
@@ -25,10 +27,15 @@ class CacheWalletDataSourceTest extends TestCase
      */
     public function testCreateWallet()
     {
-        $wallet = $this->cacheMock->shouldReceive('get')->once()->with('wallet:1')->andReturn('wallet:1');
+        $wallet = $this->cacheMock->shouldReceive('get')
+            ->once()
+            ->with('wallet:1')
+            ->andReturn('wallet:1');
 
         if (!$wallet) {
-            $this->cacheMock->shouldReceive('put')->once()->with('wallet:1', $wallet);
+            $this->cacheMock->shouldReceive('put')
+                ->once()
+                ->with('wallet:1', $wallet);
         }
 
         $cacheWallet = new CacheWalletDataSource($this->cacheMock);
@@ -44,7 +51,10 @@ class CacheWalletDataSourceTest extends TestCase
     {
         $expectedWallet = new Wallet(1);
 
-        $this->cacheMock->shouldReceive('get')->once()->with('wallet:1')->andReturn($expectedWallet);
+        $this->cacheMock->shouldReceive('get')
+            ->once()
+            ->with('wallet:1')
+            ->andReturn($expectedWallet);
 
         $cacheWallet = new CacheWalletDataSource($this->cacheMock);
 
