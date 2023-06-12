@@ -10,7 +10,7 @@ class BuyCoinFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function formRequest_validates_buy_coin_parameter()
+    public function formRequestValidatesBuyCoinParameter()
     {
         $buyCoinFormRequest = new BuyCoinFormRequest();
 

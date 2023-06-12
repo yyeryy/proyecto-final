@@ -7,11 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class SellCoinFormRequestTest extends TestCase
 {
-
     /**
      * @test
      */
-    public function formRequest_validates_sell_coin_parameter()
+    public function formRequestValidatesSellCoinParameter()
     {
         $sellCoinFormRequest = new SellCoinFormRequest();
 
