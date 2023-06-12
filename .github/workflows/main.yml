@@ -14,8 +14,5 @@ jobs:
         run: composer install
         working-directory: src
       
-      - name: Correr PHP Code Sniffer
-        run: .vendor/bin/phpcs --standard=PSR12 .
-
-      - name: Correr PHP Mess Detector
-        run: .vendor/bin/phpmd . text cleancode
+      - name: Test, Mess Detector y Code Sniffer
+        run: ./vendor/bin/grumphp run
