@@ -4,7 +4,7 @@ namespace App\Domain;
 
 use App\Domain\CoinDataSource\private;
 
-Interface CoinDataSource
+interface CoinDataSource
 {
     public function getById(string $coinId, float $amountUSD);
 
