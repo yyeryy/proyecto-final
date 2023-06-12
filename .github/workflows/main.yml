@@ -11,10 +11,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Instalar contenedor
-        run: composer install
+        run: src/composer install
       
-      - name: Test
-        run: ./vendor/bin/phpunit
-      
-      - name: Mess Detector y Code Sniffer
-        run: ./vendor/bin/grumphp run
+      - name: Test, Mess Detector y Code Sniffer
+        run: .src/vendor/bin/grumphp run
