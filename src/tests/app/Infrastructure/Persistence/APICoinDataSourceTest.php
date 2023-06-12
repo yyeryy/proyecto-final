@@ -3,6 +3,7 @@
 namespace Tests\Infrastructure\Persistence;
 
 use App\Domain\Coin;
+use App\Infrastructure\Persistence\APIClient;
 use App\Infrastructure\Persistence\APICoinDataSource;
 use Exception;
 use Mockery;
@@ -10,25 +11,33 @@ use PHPUnit\Framework\TestCase;
 
 class APICoinDataSourceTest extends TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     protected function setUp(): void
     {
         parent::setUp();
-        $this->APICoinDataSourceMock = Mockery::mock(APICoinDataSource::class);
-    }
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
+        $this->APIClientMock = Mockery::mock(APIClient::class);
     }
 
     /**
      * @test
      */
-    public function get_coin_by_Id_correctly_test(){
-        $moneda = new Coin(1, 'Bitcoin', 'BTC', 0.02, 1000, 1);
-        $this->APICoinDataSourceMock->shouldReceive('getById')->once()->with('90', 1000)->andReturn($moneda);
-
-        $result = $this->APICoinDataSourceMock->getById('90', 1000);
+    public function getCoinByIdCorrectlyTest()
+    {
+        $APICoinDataSource = new APICoinDataSource($this->APIClientMock);
+        $moneda = [[
+            'id' => 1,
+            'name' => 'Bitcoin',
+            'symbol' => 'BTC',
+            'price_usd' => 0.02,
+            'rank' => 1
+        ]];
+        $this->APIClientMock->shouldReceive('getCoinDataWithId')
+            ->once()
+            ->with('90')
+            ->andReturn($moneda);
+        $result = $APICoinDataSource->getById('90', 1000);
         $expectedCoin = new Coin(1, 'Bitcoin', 'BTC', 0.02, 1000, 1);
         $this->assertEquals($expectedCoin->getName(), $result->getName());
     }
@@ -36,21 +45,37 @@ class APICoinDataSourceTest extends TestCase
     /**
      * @test
      */
-    public function get_coin_by_incorrectly_Id_test(){
+    public function getCoinByIncorrectlyIdTest()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Coin Not found exception");
-        $this->APICoinDataSourceMock->shouldReceive('getById')->once()->with('50000', 1000)->andThrow(new Exception("Coin Not found exception"));
-        $this->APICoinDataSourceMock->getById('50000', 1000);
+        $this->APIClientMock->shouldReceive('getCoinDataWithId')
+            ->once()
+            ->with('50000')
+            ->andThrow(new Exception("Coin Not found exception"));
+        $APICoinDataSource = new APICoinDataSource($this->APIClientMock);
+        $APICoinDataSource->getById('50000', 1000);
     }
 
     /**
      * @test
      */
-    public function get_balance_by_Id_correctly_test(){
-        $coinData = [1000, 1000];
-        $this->APICoinDataSourceMock->shouldReceive('getBalanceById')->once()->with('80,90')->andReturn($coinData);
-        $result = $this->APICoinDataSourceMock->getBalanceById('80,90');
-
+    public function getBalanceByIdCorrectlyTest()
+    {
+        $coinData = [
+            [
+                'price_usd' => 1000
+            ],
+            [
+                'price_usd' => 1000
+            ]
+        ];
+        $this->APIClientMock->shouldReceive('getCoinDataWithId')
+            ->once()
+            ->with('80,90')
+            ->andReturn($coinData);
+        $APICoinDataSource = new APICoinDataSource($this->APIClientMock);
+        $result = $APICoinDataSource->getBalanceById('80,90');
         $this->assertIsArray($result);
         $this->assertEquals(2, count($result));
     }
@@ -58,10 +83,15 @@ class APICoinDataSourceTest extends TestCase
     /**
      * @test
      */
-    public function get_balance_by_incorrectly_Id_test(){
+    public function getBalanceByIncorrectlyIdTest()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Coin Not found exception");
-        $this->APICoinDataSourceMock->shouldReceive('getBalanceById')->once()->with('50000,50000')->andThrow(new Exception("Coin Not found exception"));
-        $this->APICoinDataSourceMock->getBalanceById('50000,50000');
+        $this->APIClientMock->shouldReceive('getCoinDataWithId')
+            ->once()
+            ->with('50000,50000')
+            ->andThrow(new Exception("Coin Not found exception"));
+        $APICoinDataSource = new APICoinDataSource($this->APIClientMock);
+        $APICoinDataSource->getById('50000,50000', 1000);
     }
 }

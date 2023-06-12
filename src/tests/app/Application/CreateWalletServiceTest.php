@@ -14,49 +14,55 @@ use PHPUnit\Framework\TestCase;
 
 class CreateWalletServiceTest extends TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     protected function setUp(): void
     {
         parent::setUp();
-        //$this->CreateWalletServiceMock = Mockery::mock(CreateWalletService::class);
-        $this->UserDataSourceMock = Mockery::mock(UserDataSource::class);
-        $this->WalletDataSourceMock = Mockery::mock(WalletDataSource::class);
-    }
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
+        $this->CacheUserDataSourceMock = Mockery::mock(CacheUserDataSource::class);
+        $this->CacheWalletDataSourceMock = Mockery::mock(CacheWalletDataSource::class);
     }
 
     /**
      * @test
      */
-    public function execute_create_wallet_with_non_existing_user_id_test(){
-        $this->UserDataSourceMock->shouldReceive('findUserById')->once()->with('2')->andReturn(null);
-        $createWalletService = new CreateWalletService($this->UserDataSourceMock, $this->WalletDataSourceMock);
+    public function executeCreateWalletWithNonExistingUserIdTest()
+    {
+        $this->CacheUserDataSourceMock->shouldReceive('findUserById')
+            ->once()
+            ->with('2')
+            ->andReturn(null);
+        $createWalletService = new CreateWalletService(
+            $this->CacheUserDataSourceMock,
+            $this->CacheWalletDataSourceMock
+        );
 
         $this->expectException(\Exception::class);
 
         $createWalletService->execute('2');
-        /*$this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('2')->andReturn(null);
-        $result = $this->CreateWalletServiceMock->execute('2');*/
     }
 
     /**
      * @test
      */
-    public function execute_create_wallet_with_existing_user_id_test(){
+    public function executeCreateWalletWithExistingUserIdTest()
+    {
         $wallet = new Wallet('1');
         $user = new User('1', $wallet);
-        if($this->UserDataSourceMock->shouldReceive('findUserById')->once()->with('1')->andReturn($user)){
-            $this->WalletDataSourceMock->shouldReceive('createWallet')->once()->with('1')->andReturn($wallet);
+
+        if ($this->CacheUserDataSourceMock->shouldReceive('findUserById')->once()->with('1')->andReturn($user)) {
+            $this->CacheWalletDataSourceMock->shouldReceive('createWallet')
+                ->once()
+                ->with('1')
+                ->andReturn($wallet);
         }
-        $createWalletService = new CreateWalletService($this->UserDataSourceMock, $this->WalletDataSourceMock);
+        $createWalletService = new CreateWalletService(
+            $this->CacheUserDataSourceMock,
+            $this->CacheWalletDataSourceMock
+        );
 
         $result = $createWalletService->execute('1');
         $this->assertEquals($wallet, $result);
-        /*$wallet = new Wallet('1');
-        $this->CreateWalletServiceMock->shouldReceive('execute')->once()->with('1')->andReturn($wallet);
-        $result = $this->CreateWalletServiceMock->execute('1');
-        $this->assertEquals($wallet, $result);*/
     }
 }

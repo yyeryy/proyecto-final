@@ -4,28 +4,33 @@ namespace Tests\Application;
 
 use App\Application\WalletCryptocurrenciesService;
 use App\Domain\Wallet;
+use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class WalletCryptocurrenciesServiceTest extends TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     protected function setUp(): void
     {
         parent::setUp();
-        $this->WalletCryptocurrenciesServiceMock = Mockery::mock(WalletCryptocurrenciesService::class);
+        $this->cacheWalletDataSourceMock = Mockery::mock(CacheWalletDataSource::class);
     }
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
-    }
+
     /**
      * @test
      */
-    public function execute_create_wallet_with_existing_wallet_id_test(){
+    public function executeCreateWalletWithExistingWalletIdTest()
+    {
         $wallet = new Wallet('1');
-        $this->WalletCryptocurrenciesServiceMock->shouldReceive('execute')->once()->with('1')->andReturn($wallet);
-        $result = $this->WalletCryptocurrenciesServiceMock->execute('1');
+        $this->cacheWalletDataSourceMock->shouldReceive('findById')
+            ->once()
+            ->with('1')
+            ->andReturn($wallet);
+        $walletService = new WalletCryptocurrenciesService($this->cacheWalletDataSourceMock);
+        $result = $walletService->execute('1');
         $this->assertEquals($wallet, $result);
     }
 }

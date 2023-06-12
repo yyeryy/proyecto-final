@@ -9,16 +9,14 @@ use App\Infrastructure\Persistence\CacheWalletDataSource;
 
 class WalletCryptocurrenciesService
 {
-    private UserDataSource $userDataSource;
-    private WalletDataSource $walletDataSource;
+    private CacheWalletDataSource $cacheWallet;
 
-    public function __construct(UserDataSource $userDataSource, WalletDataSource $walletDataSource)
+    public function __construct(CacheWalletDataSource $CacheWallet)
     {
-        $this->userDataSource = $userDataSource;
-        $this->walletDataSource = $walletDataSource;
+        $this->cacheWallet = $CacheWallet;
     }
     public function execute(string $walletId)
     {
-        return $this->walletDataSource->findById($walletId);
+        return $this->cacheWallet->findById($walletId);
     }
 }

@@ -4,53 +4,57 @@ namespace Tests\app\Infrastructure\Persistence;
 
 use App\Domain\Wallet;
 use App\Infrastructure\Persistence\CacheWalletDataSource;
-use Illuminate\Support\Facades\Cache;
-use PHPUnit\Framework\TestCase;
+//use Illuminate\Support\Facades\Cache;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use Tests\TestCase;
 use Mockery;
-
+use Mockery\Container;
 
 class CacheWalletDataSourceTest extends TestCase
 {
+    protected $cacheMock;
     protected function setUp(): void
     {
         parent::setUp();
-        $this->cacheMock = Mockery::mock('alias:'.Cache::class);
+        $container = new Container();
+        $this->cacheMock = $container->mock(CacheRepository::class);
     }
 
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
-    }
     /**
      * @test
      */
-    public function test_create_wallet()
+    public function testCreateWallet()
     {
-        $wallet = $this->cacheMock->shouldReceive('get')->once()->with('wallet:1')->andReturn('wallet:1');
+        $wallet = $this->cacheMock->shouldReceive('get')
+            ->once()
+            ->with('wallet:1')
+            ->andReturn('wallet:1');
 
-        if(!$wallet){
-            $this->cacheMock->shouldReceive('put')->once()->with('wallet:1', Mockery::type(Wallet::class));
+        if (!$wallet) {
+            $this->cacheMock->shouldReceive('put')->once()->with('wallet:1', $wallet);
         }
 
-        $cacheWalletDataSource = new CacheWalletDataSource();
+        $cacheWallet = new CacheWalletDataSource($this->cacheMock);
 
-        $result = $cacheWalletDataSource->createWallet('1');
+        $result = $cacheWallet->createWallet('1');
         $this->assertEquals('wallet:1', $result);
     }
 
     /**
      * @test
      */
-    public function test_find_user_by_id()
+    public function testFindUserById()
     {
         $expectedWallet = new Wallet(1);
 
-        $this->cacheMock->shouldReceive('get')->once()->with('wallet:1')->andReturn($expectedWallet);
+        $this->cacheMock->shouldReceive('get')
+            ->once()
+            ->with('wallet:1')
+            ->andReturn($expectedWallet);
 
-        $cacheWalletDataSource = new CacheWalletDataSource();
+        $cacheWallet = new CacheWalletDataSource($this->cacheMock);
 
-        $result = $cacheWalletDataSource->findById('1');
+        $result = $cacheWallet->findById('1');
         $this->assertEquals($expectedWallet, $result);
     }
 }

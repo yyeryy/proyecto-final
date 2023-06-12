@@ -2,7 +2,6 @@
 
 namespace App\Application;
 
-
 use App\Domain\CoinDataSource;
 use App\Domain\Wallet;
 use App\Domain\WalletDataSource;
@@ -24,12 +23,11 @@ class BuyCoinService
         $this->coinDataSource = $coinDataSource;
     }
 
-
     public function execute($coinId, $walletId, $amountUsd): void
     {
-            $wallet = $this->walletDataSource->findById($walletId);
-            $coin = $this->coinDataSource->getById($coinId, $amountUsd);
-            $wallet->insertCoin($coin);
-            Cache::put('wallet:' . $walletId, $wallet);
+        $wallet = $this->walletDataSource->findById($walletId);
+        $coin = $this->coinDataSource->getById($coinId, $amountUsd);
+        $wallet->insertCoin($coin);
+        Cache::put('wallet:' . $walletId, $wallet);
     }
 }

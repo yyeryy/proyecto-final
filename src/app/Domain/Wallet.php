@@ -10,13 +10,13 @@ class Wallet
     private string $wallet_id;
     private array $coins;
 
-    public function __construct(string $id)
+    public function __construct(string $wallet_id)
     {
-        $this->wallet_id = $id;
+        $this->wallet_id = $wallet_id;
         $this->coins = array();
     }
 
-    public function getId(): String
+    public function getId(): string
     {
         return $this->wallet_id;
     }
@@ -26,9 +26,9 @@ class Wallet
         return $this->coins;
     }
 
-    public function setId(String $id): void
+    public function setId(string $wallet_id): void
     {
-        $this->wallet_id = $id;
+        $this->wallet_id = $wallet_id;
     }
 
     public function setCoin($coins)
@@ -36,26 +36,27 @@ class Wallet
         $this->coins = $coins;
     }
 
-    public function open(string $id): Wallet
+    public function open(string $wallet_id): Wallet
     {
-        $wallet = new Wallet($id);
+        $wallet = new Wallet($wallet_id);
         return $wallet;
     }
 
-    public function insertCoin(Coin $coin){
+    public function insertCoin(Coin $coin)
+    {
         $bool = false;
         $key = 0;
-        foreach ($this->coins as $oldCoin){
-            if($oldCoin->getCoinId() == $coin->getCoinId()){
+        foreach ($this->coins as $oldCoin) {
+            if ($oldCoin->getCoinId() == $coin->getCoinId()) {
                 $bool = true;
                 break;
             }
             $key++;
         }
-        if($bool){
+        if ($bool) {
             $this->coins[$key]->setAmount(($this->coins[$key]->getAmount()) + $coin->getAmount());
             $this->coins[$key]->setValueUsd(($this->coins[$key]->getValueUsd()) + $coin->getValueUsd());
-        }else{
+        } else {
             array_push($this->coins, $coin);
             $ranks = [];
             foreach ($this->coins as $coin) {
@@ -66,30 +67,28 @@ class Wallet
     }
 
 
-    public function sellCoin(Coin $coin){
+    public function sellCoin(Coin $coin)
+    {
         $bool = false;
         $key = 0;
-        foreach ($this->coins as $oldCoin){
-            if($oldCoin->getCoinId() == $coin->getCoinId()){
+        foreach ($this->coins as $oldCoin) {
+            if ($oldCoin->getCoinId() == $coin->getCoinId()) {
                 $bool = true;
                 break;
             }
             $key++;
         }
-        if($bool){
-            if($this->coins[$key]->getAmount() > $coin->getAmount()){
+        if ($bool) {
+            if ($this->coins[$key]->getAmount() > $coin->getAmount()) {
                 $this->coins[$key]->setAmount($this->coins[$key]->getAmount() - $coin->getAmount());
                 $this->coins[$key]->setValueUsd($this->coins[$key]->getValueUsd() - $coin->getValueUsd());
-            } else{
-                //En un principio hemos añadido un else if que comprobaba si el amount proporcionado por el usuario
-                //para vender era igual al amount que tenía para que solamente se pudieran vender en caso de ser
-                //menor o igual a la cantidad que tenía, pero quedaría al cambiar el precio de las criptomonedas cada
-                //poco tiempo una cantidad muy pequeña de moneda, así que lo vendemos todo.
+            } elseif ($this->coins[$key]->getAmount() == $coin->getAmount()) {
                 array_splice($this->coins, $key, 1);
+            } else {
+                throw new Exception("No se puede vender mas de lo que tienes");
             }
         } else {
             throw new Exception("No existe esa moneda en la wallet");
         }
     }
-
 }
