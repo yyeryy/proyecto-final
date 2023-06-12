@@ -6,7 +6,8 @@ use Exception;
 
 class APIClient
 {
-    public function getCoinDataWithId($coinId){
+    public function getCoinDataWithId($coinId)
+    {
         $url = 'https://api.coinlore.net/api/ticker/?id=' . $coinId;
         $options = array(
             'http' => array(
