@@ -8,6 +8,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class SellCoinController
 {
     private SellCoinService $sellCoinService;
@@ -32,7 +35,7 @@ class SellCoinController
         $wallet_id = $request->input("wallet_id");
         $amount_usd = $request->input("amount_usd");
 
-        if($amount_usd <= 0){
+        if ($amount_usd <= 0) {
             return response()->json([
                 "errors" => "El amount no puede ser menor o igual a 0"
             ]);
