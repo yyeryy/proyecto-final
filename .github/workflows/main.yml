@@ -13,7 +13,7 @@ jobs:
       - run: cd src
       
       - name: Instalar contenedor
-        run: ./composer install
+        run: composer install
       
       - name: Test, Mess Detector y Code Sniffer
         run: ./vendor/bin/grumphp run
