@@ -14,6 +14,9 @@ use Mockery;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class SellCoinControllerTest extends TestCase
 {
     protected function setUp(): void
@@ -26,7 +29,8 @@ class SellCoinControllerTest extends TestCase
     /**
      * @test
      */
-    public function do_correctly_buy_coin_test(){
+    public function doCorrectlyBuyCoinTest()
+    {
         $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '90',
             'wallet_id' => '1',
@@ -43,7 +47,8 @@ class SellCoinControllerTest extends TestCase
     /**
      * @test
      */
-    public function invalid_amount_usd_less_than_zero_or_equal_test(){
+    public function invalidAmountUsdLessThanZeroOrEqualTest()
+    {
         $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '90',
             'wallet_id' => '1',
@@ -53,13 +58,16 @@ class SellCoinControllerTest extends TestCase
         $result = $this->SellCoinController->__invoke($request);
 
         $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertJsonStringEqualsJsonString('{"errors": "El amount no puede ser menor o igual a 0"}', $result->content());
+        $this->assertJsonStringEqualsJsonString(
+            '{"errors": "El amount no puede ser menor o igual a 0"}',
+            $result->content()
+        );
     }
 
     /**
      * @test
      */
-    public function invalid_coin_throw_exception_test()
+    public function invalidCoinThrowExceptionTest()
     {
         $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '50000',
@@ -80,7 +88,7 @@ class SellCoinControllerTest extends TestCase
     /**
      * @test
      */
-    public function invalid_wallet_id_throw_exception_test()
+    public function invalidWalletIdThrowExceptionTest()
     {
         $request = Request::create('/coin/sell', 'POST', [
             'coin_id' => '90',
