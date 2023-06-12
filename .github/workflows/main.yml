@@ -10,8 +10,10 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v3
       
+      - run: cd src
+      
       - name: Instalar contenedor
-        run: ./src/composer install
+        run: ./composer install
       
       - name: Test, Mess Detector y Code Sniffer
-        run: ./src/vendor/bin/grumphp run
+        run: ./vendor/bin/grumphp run
