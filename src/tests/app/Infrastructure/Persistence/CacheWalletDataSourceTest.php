@@ -8,7 +8,6 @@ use App\Infrastructure\Persistence\CacheWalletDataSource;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Tests\TestCase;
 use Mockery;
-use Mockery\Container;
 
 /**
  * @test
