@@ -10,10 +10,9 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v3
       
-      - run: cd src
-      
       - name: Instalar contenedor
         run: composer install
+        working-directory: src
       
       - name: Correr PHP Code Sniffer
         run: .vendor/bin/phpcs --standard=PSR12 .
