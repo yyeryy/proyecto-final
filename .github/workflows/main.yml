@@ -15,5 +15,8 @@ jobs:
       - name: Instalar contenedor
         run: composer install
       
-      - name: Test, Mess Detector y Code Sniffer
-        run: ./vendor/bin/grumphp run
+      - name: Correr PHP Code Sniffer
+        run: .vendor/bin/phpcs --standard=PSR12 .
+
+      - name: Correr PHP Mess Detector
+        run: .vendor/bin/phpmd . text cleancode
