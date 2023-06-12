@@ -18,6 +18,7 @@ grumphp:
       encoding: ~
       ignore_patterns:
         - '**/public/index.php'
+        - '**/resources/views/welcome.blade.php'
       sniffs: [ ]
       triggered_by: [ php ]
       exclude: [ ]
