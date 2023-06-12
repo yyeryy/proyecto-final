@@ -10,11 +10,11 @@ class WalletBalanceFormRequestTest extends TestCase
     /**
      * @test
      */
-    public function formRequest_validates_wallet_balance()
+    public function formRequestValidatesWalletBalance()
     {
-        $walletBalanceFormRequest = new WalletBalanceFormRequest();
+        $walletBalance = new WalletBalanceFormRequest();
 
-        $rules = $walletBalanceFormRequest->rules();
+        $rules = $walletBalance->rules();
 
         $this->assertArrayHasKey('wallet_id', $rules);
         $this->assertStringContainsString('required', $rules['wallet_id']);
