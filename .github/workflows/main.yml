@@ -16,3 +16,4 @@ jobs:
       
       - name: Test, Mess Detector y Code Sniffer
         run: ./vendor/bin/grumphp run
+        working-directory: src
