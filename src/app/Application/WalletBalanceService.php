@@ -8,18 +8,19 @@ use PHPUnit\Util\Exception;
 
 class WalletBalanceService
 {
-    private CacheWalletDataSource $cacheWalletDataSource;
+    private CacheWalletDataSource $cacheWallet;
     private APICoinDataSource $apiCoinDataSource;
 
-    public function __construct(CacheWalletDataSource $cacheWalletDataSource, APICoinDataSource $apiCoinDataSource)
+    public function __construct(CacheWalletDataSource $cacheWallet, APICoinDataSource $apiCoinDataSource)
     {
-        $this->cacheWalletDataSource = $cacheWalletDataSource;
+        $this->cacheWallet = $cacheWallet;
         $this->apiCoinDataSource = $apiCoinDataSource;
     }
-    public function execute($walletId){
-        $wallet = $this->cacheWalletDataSource->findById($walletId);
+    public function execute($walletId)
+    {
+        $wallet = $this->cacheWallet->findById($walletId);
         $coins = $wallet->getCoin();
-        if(empty($coins)){
+        if (empty($coins)) {
             throw new Exception("Coin Not found exception");
         }
         $coins_str = "";
@@ -29,7 +30,7 @@ class WalletBalanceService
         $coins_str .= "0";
         $price_array = $this->apiCoinDataSource->getBalanceById($coins_str);
         $balance = 0;
-        for($i = 0; $i<count($coins); $i++){
+        for ($i = 0; $i < count($coins); $i++) {
             $balance += (($price_array[$i] * $coins[$i]->getAmount()) - ($coins[$i]->getValueUsd()));
         }
         return $balance . "$";
