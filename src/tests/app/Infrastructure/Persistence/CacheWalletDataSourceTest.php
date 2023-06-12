@@ -10,7 +10,6 @@ use Tests\TestCase;
 use Mockery;
 
 /**
- * @test
  * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class CacheWalletDataSourceTest extends TestCase

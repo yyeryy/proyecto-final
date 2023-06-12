@@ -9,12 +9,15 @@ use App\Domain\User;
 use App\Infrastructure\Persistence\CacheUserDataSource;
 use Mockery;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ */
 class CacheUserDataSourceTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
-        $this->cacheMock = Mockery::mock('alias:'.Cache::class);
+        $this->cacheMock = Mockery::mock('alias:' . Cache::class);
     }
 
     protected function tearDown(): void
@@ -26,7 +29,7 @@ class CacheUserDataSourceTest extends TestCase
     /**
      * @test
      */
-    public function test_get_user_from_cache()
+    public function testGetUserFromCache()
     {
         $expectedUser = new User(1, new Wallet('1'));
 
@@ -41,12 +44,13 @@ class CacheUserDataSourceTest extends TestCase
     /**
      * @test
      */
-    public function test_find_user_by_id(){
+    public function testFindUserById()
+    {
         $expectedUser = new User(1, new Wallet('1'));
 
         $user = $this->cacheMock->shouldReceive('get')->once()->with('user:1')->andReturn($expectedUser);
 
-        if(!$user){
+        if (!$user) {
             $this->cacheMock->shouldReceive('put')->once()->with('user:1', Mockery::type(User::class));
         }
 
