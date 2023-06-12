@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Infrastructure\Controllers;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class BuyCoinFormRequest extends FormRequest
